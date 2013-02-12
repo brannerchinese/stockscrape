@@ -2,6 +2,7 @@ stockscrape
 ===========
 
 Version 0.1 20130212
+
 Author: David Prager Branner
 
 The goal of this project is to explore web scraping using the headline news service on finance.yahoo.com .
