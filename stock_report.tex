@@ -1,0 +1,347 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+% THIS TEMPLATE IS DATED 20111117
+
+\documentclass[11pt,asymmetric]{article}
+\usepackage[tmargin=1in, bmargin=1in, lmargin=0.5in, rmargin=0.5in]{geometry}
+\geometry{letterpaper}
+%\geometry{landscape} % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[fleqn,reqno]{amsmath}
+\usepackage{mathspec}			% replaces amssymb; do not use unicode-math
+\usepackage{url}
+\usepackage{datetime}		% allows \currenttime
+
+\usepackage[italic,noendash]{mathastext}	% propagates document text font to math mode; use option italic to get italic text in math mode
+
+\usepackage{mdwtab}				% allows the use of footnotes in tables
+\usepackage[hang,flushmargin]{footmisc}	% makes footnotes flush with margin, etc.
+\usepackage{setspace}			% control of line spacing
+\usepackage[normalem]{ulem}		% underlining (with ``normal emphasis'' retained)
+\usepackage{longtable}		% allows breaking of tables across pages with \begin{longtable}
+
+\newcommand\head[1]{\textbf{\textsf{#1}}}
+
+\setromanfont[Scale=1,Mapping=tex-text]{TeX Gyre Termes}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{TeX Gyre Heros Cn}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RE,LO]{\footnotesize{printed at \currenttime, \today}}
+\fancyfoot[C]{\thepage}
+\headheight14.5pt		% this value chosen in response to warning messages
+
+
+\frenchspacing
+\raggedright
+
+\parskip9pt
+
+
+
+\title{Stock Prices}
+
+\setlength{\parindent}{0cm}	% no paragraph indent
+
+\begin{document}
+\maketitle
+
+\begin{table}[htdp]
+\begin{center}
+\begin{tabular}{|l|>{\raggedright}p{.75in}|>{\flushright}p{.5in}|>{\flushright}p{.5in}|>{\flushright}p{.55in}|p{.5in}|>{\raggedright}p{.7in}|p{.7in}|}\hline
+\head{Ticker} & \head{Last Trade Date} & \head{Last Trade} & \head{Change} & \head{\% Change} & \head{Dividend/ Share} & \head{Dividend Pay Date} & \head{Ex-dividend Date} \\\hline
+\head{ALU} & 2/12/2013 & 1.65 & 0.00 & 0 & 0.00 & 29-Jun-07 & 31-May-07\\ \hline
+\head{BDN} & 2/12/2013 & 13.27 & +0.25 & +1.92\% & 0.60 & Jan 18 & Jan  2\\ \hline
+\head{BRT} & 2/12/2013 & 6.63 & +0.10 & +1.53\% & 0.00 & 30-Oct-09 & 19-Sep-08\\ \hline
+\head{CLP} & 2/12/2013 & 21.76 & +0.15 & +.69\% & 0.75 & Feb 11 & Jan 31\\ \hline
+\head{CMCSA} & 2/12/2013 & 38.97 & +0.33 & +.85\% & 0.652 & Jan 23 & Dec 28\\ \hline
+\head{DTE} & 2/12/2013 & 64.51 & +0.11 & +.17\% & 2.416 & Apr 15 & Dec 17\\ \hline
+\head{DUK} & 2/12/2013 & 69.50 & +0.36 & +.52\% & 3.03 & Mar 18 & Nov 14\\ \hline
+\head{EQY} & 2/12/2013 & 23.64 & +0.22 & +.93\% & 0.88 & Dec 31 & Dec 13\\ \hline
+\head{FB} & 2/12/2013 & 27.37 & -0.89 & -3.14\% & 0.00 & N/A & N/A\\ \hline
+\head{FMAGX} & 2/12/2013 & 77.72 & +0.18 & +.23\% & N/A & N/A & N/A\\ \hline
+\head{FRIFX} & 2/11/2013 & 11.73 & +0.01 & +.8\% & N/A & N/A & N/A\\ \hline
+\head{FTR} & 2/12/2013 & 4.65 & +0.08 & +1.75\% & 0.40 & Dec 31 & Dec  5\\ \hline
+\head{GE} & 2/12/2013 & 22.58 & +0.13 & +.57\% & 0.70 & Jan 25 & Dec 20\\ \hline
+\head{GXP} & 2/12/2013 & 21.99 & +0.24 & +1.10\% & 0.856 & Dec 20 & Nov 27\\ \hline
+\head{LSI} & 2/12/2013 & 7.19 & +0.05 & +.70\% & 0.00 & N/A & N/A\\ \hline
+\head{LTC} & 2/12/2013 & 38.15 & +0.24 & +.63\% & 1.80 & Feb 28 & Jan 18\\ \hline
+\head{MSFT} & 2/12/2013 & 27.88 & +0.02 & +.7\% & 0.83 & Mar 14 & Nov 13\\ \hline
+\head{NCR} & 2/12/2013 & 28.53 & -0.45 & -1.55\% & 0.00 & N/A &  1-Oct-07\\ \hline
+\head{NU} & 2/12/2013 & 41.15 & +0.03 & +.7\% & 1.323 & Mar 28 & Nov 28\\ \hline
+\head{SE} & 2/12/2013 & 29.84 & +0.29 & +.98\% & 0.865 & Mar 11 & Nov  7\\ \hline
+\head{SNH} & 2/12/2013 & 24.54 & +0.06 & +.24\% & 1.54 & Feb 20 & Jan 17\\ \hline
+\head{T} & 2/12/2013 & 35.60 & +0.37 & +1.05\% & 1.77 & Feb  1 & Jan  8\\ \hline
+\head{TDC} & 2/12/2013 & 61.43 & -0.83 & -1.33\% & 0.00 & N/A & N/A\\ \hline
+\head{VZ} & 2/12/2013 & 44.44 & +0.12 & +.27\% & 2.03 & Feb  1 & Jan  8\\ \hline
+\head{XRX} & 2/12/2013 & 7.96 & -0.03 & -.37\% & 0.172 & Jan 31 & Dec 27\\ \hline
+\end{tabular}
+ \end{center}
+ \end{table}%
+\clearpage
+
+\section*{ALU}
+\begin{itemize}
+\item This Just In: Upgrades and Downgrades --- at Motley Fool (Tue 2:07PM EST)
+\item Vodafone Warns Against Software Upgrade and 4 Telecom Titans Attracting Interest --- at Wall St. Cheat Sheet (Tue 2:03PM EST)
+\item Alcatel's Next Stop Could Be \$2 --- at Seeking Alpha (Tue 1:44PM EST)
+\item Alcatel-Lucent Goes Red --- at Motley Fool (Tue 8:41AM EST)
+\item 5 Stocks To Buy With Reasons To Rally And Room To Run --- at Seeking Alpha (Tue 8:31AM EST)
+\end{itemize}
+
+\section*{BDN}
+\begin{itemize}
+\item Brandywine Realty Trust Announces Tax Characteristics of Its 2012 Distributions --- PR Newswire (Mon, Feb 11)
+\end{itemize}
+
+\section*{BRT}
+\begin{itemize}
+\item BRT REALTY TRUST Files SEC form 10-Q, Quarterly Report --- EDGAR Online (Thu, Feb 7)
+\end{itemize}
+
+\section*{CLP}
+\begin{itemize}
+\item COLONIAL PROPERTIES TRUST Files SEC form 8-K/A, Results of Operations and Financial Condition, Regulation FD Disclosu --- EDGAR Online (Thu, Feb 7)
+\item Colonial Properties Trust Sells Metropolitan Midtown for \$94 Million --- Business Wire (Thu, Feb 7)
+\end{itemize}
+
+\section*{CMCSA}
+\begin{itemize}
+\item Comcast to buy GE's 49 pct stake in NBCUniversal --- AP (Tue 5:10PM EST)
+\item\ [\$\$] Comcast to Buy Remainder of NBCU From GE --- at The Wall Street Journal (Tue 5:08PM EST)
+\item Business Highlights --- AP (Tue 5:08PM EST)
+\item DoJ Puts Arris Acquisition of Motorola Home on Hold --- at Motley Fool (Tue 5:05PM EST)
+\item Comcast to Buy Out GE’s Stake in NBC for \$16.7 Billion --- at Bloomberg (Tue 5:04PM EST)
+\item After-Hours Buzz: CMCSA, GE, CLF \& More --- at CNBC (Tue 5:00PM EST)
+\item\ [video] Maria's Observation: State of the Union Address --- at CNBC (Tue 4:57PM EST)
+\item Comcast Beats Estimates, Boosts Dividend And Buys The Rest Of NBC From GE --- at Forbes (Tue 4:55PM EST)
+\item Comcast Buying G.E.'s Stake in NBCUniversal for \$16.7 Billion --- at New York Times (Tue 4:54PM EST)
+\item UPDATE 1-Comcast to buy rest of NBCUniversal from GE in \$16.7B deal --- at Reuters (Tue 4:50PM EST)
+\item GE to sell rest of NBC to Comcast for \$16.7 bln --- at MarketWatch (Tue 4:47PM EST)
+\item GE says to sell remaining 49 percent stake in NBC to Comcast --- Reuters (Tue 4:44PM EST)
+\item GE says to sell remaining 49 percent stake in NBC to Comcast --- at Reuters (Tue 4:41PM EST)
+\item Comcast Jumps 8\%: To Buy GE's NBC Stake for \$17B, Hikes Dividend 20\% --- at Barrons.com (Tue 4:41PM EST)
+\item Comcast to buy GE's stake in NBCUniversal for \$16.7 billion --- at Reuters (Tue 4:39PM EST)
+\item Comcast to buy GE's stake in NBCUniversal for \$16.7 bln --- at Reuters (Tue 4:37PM EST)
+\item COMCAST CORP Files SEC form 8-K, Entry into a Material Definitive Agreement, Regulation FD Disclosure, Financial Stat --- EDGAR Online (Tue 4:34PM EST)
+\item BRIEF-Comcast shares up 4.4 pct after the bell following results --- at Reuters (Tue 4:33PM EST)
+\item InPlay: Comcast increases dividend by 20\% to \$0.78 per share on an annualized basis and plans to repurchase \$2 bln of its stock in 2013 --- Briefing.com (Tue 4:32PM EST)
+\item Comcast Increases Dividend by 20\% to \$0.78 Per Share on an Annualized Basis and Plans to Repurchase \$2 Billion of Its Stock in 2013 --- Business Wire (Tue 4:32PM EST)
+\item\ [video] Porter Bibb: Comcast Is Undervalued --- at CNBC (Tue 4:31PM EST)
+\item Comcast Reports 4th Quarter and Year End 2012 Results --- Business Wire (Tue 4:31PM EST)
+\item Comcast to Buy Rest of GE's Stake in NBCUniversal --- at CNBC (Tue 4:30PM EST)
+\item NBC stumbles in deep midwinter freeze, ratings low --- AP (Tue 4:30PM EST)
+\item Comcast to Acquire General Electric’s 49\% Common Equity Ownership Interest in NBCUniversal --- Business Wire (Tue 4:30PM EST)
+\end{itemize}
+
+\section*{DTE}
+\begin{itemize}
+\item Coal-fired power generation rose in January vs 2012 -Genscape --- at Reuters (Tue 1:51PM EST)
+\end{itemize}
+
+\section*{DUK}
+\begin{itemize}
+\item Whisper Number Impact: Earnings Preview For Duke Energy --- at Seeking Alpha (Tue 4:13PM EST)
+\item Midday Glance: Utilities companies --- AP (Tue 1:36PM EST)
+\item Forbes Earnings Preview: Duke Energy --- at Forbes (Tue 11:04AM EST)
+\item Forbes Earnings Preview: American Electric Power --- at Forbes (Tue 11:04AM EST)
+\item Early Glance: Utilities companies --- AP (Tue 10:43AM EST)
+\item Duke Energy Stock To Go Ex-dividend Tomorrow (DUK) --- at TheStreet (Tue 10:23AM EST)
+\end{itemize}
+
+\section*{EQY}
+\begin{itemize}
+\item Gazit-Globe to Combat Web Shopping With Doctor Tenants, CEO Says --- at Bloomberg (Wed, Feb 6)
+\end{itemize}
+
+\section*{FB}
+\begin{itemize}
+\item\ [video] What Online Dating Sites Won't Tell You --- at MarketWatch (Tue 5:10PM EST)
+\item Blankfein: Facebook Is Still a Friend of Goldman --- at Bloomberg (Tue 4:47PM EST)
+\item Apple, Facebook lead drag on tech stocks --- at MarketWatch (Tue 4:31PM EST)
+\item Facebook falters, down 12\% so far in February --- at MarketWatch (Tue 4:31PM EST)
+\item The Top Ten Stocks for Feb. 12 --- at Bloomberg (Tue 4:24PM EST)
+\item Facebook stock slides after analysts' downgrades --- AP (Tue 4:20PM EST)
+\item Dow, S\&P Close at 5-Year Highs; Apple Falls 2\% --- at CNBC (Tue 4:17PM EST)
+\item LinkedIn veering dangerously into Facebook territory --- at Investor's Business Daily (Tue 3:59PM EST)
+\item A Controversial High Yield Stock --- at Motley Fool (Tue 3:56PM EST)
+\item Jim Rogers: Facebook Isn't an Investment, It's a 'Waste of Time' --- at CNBC (Tue 3:45PM EST)
+\item Facebook, Google Led 2012′s Race for Private Tech Acquisitions --- at The Wall Street Journal (Tue 3:17PM EST)
+\item The top iPhone and iPad apps on App Store --- AP (Tue 3:17PM EST)
+\item Yahoo's Marissa Mayer: Live From The Goldman Conference --- at Forbes (Tue 3:16PM EST)
+\item Apple (AAPL) and Facebook (FB) Data Storage Budgets Send Signal to Selected Stocks: a Wall Street Transcript Interview with Andrew Nowinski, Assistant Vice President and Research Analyst at Piper Jaffray \& Co. --- Wall Street Transcript (Tue 3:15PM EST)
+\item Will Facebook Ever Dig Itself Out of This Hole? --- at Wall St. Cheat Sheet (Tue 3:10PM EST)
+\item Passport Capital Gives Yelp A Positive Review --- at Motley Fool (Tue 3:00PM EST)
+\item\ [\$\$] Facebook Facing Tougher Times? --- at Barrons.com (Tue 2:56PM EST)
+\item Sony's Michael Lynton on How the Net and Social Media Are Changing the Movie Business --- at AllThingsD (Tue 2:53PM EST)
+\item Facebook Invests in Media Relationships, Looks to Grow Mobile --- at CNBC (Tue 2:46PM EST)
+\item State Of The Union Likely To Tap Tech, Cybersecurity --- at Investor's Business Daily (Tue 2:44PM EST)
+\item The Top Ten Stocks for Tuesday, February 12 --- at Bloomberg (Tue 2:39PM EST)
+\item Valentine’s advice: Loose lips on Facebook won’t endear you to Sugar Lips --- at bizjournals.com (Tue 2:27PM EST)
+\item Why Facebook Just Got Downgraded --- at Bloomberg (Tue 2:20PM EST)
+\item Facebook Downgraded by Analysts and 3 Social Media Stocks Seeing Action --- at Wall St. Cheat Sheet (Tue 2:15PM EST)
+\item Chart of the Day: Facebook -- Like, Poke, or Unfriend? --- at Minyanville (Tue 2:05PM EST)
+\end{itemize}
+
+\section*{FMAGX}
+\begin{itemize}
+\item Fidelity: Another Big Apple Seller, Including Magellan --- at Barrons.com (Wed, Jan 30)
+\end{itemize}
+
+\section*{FRIFX}
+\begin{itemize}
+\item Top 5 Zacks \#1 Ranked Real Estate Mutual Funds --- Zacks (Thu, Nov 29)
+\end{itemize}
+
+\section*{FTR}
+\begin{itemize}
+\item CenturyLink Earnings: An Early Look --- at Motley Fool (Mon, Feb 11)
+\end{itemize}
+
+\section*{GE}
+\begin{itemize}
+\item Comcast to buy GE's 49 pct stake in NBCUniversal --- AP (Tue 5:10PM EST)
+\item GENERAL ELECTRIC CO Files SEC form 8-K, Entry into a Material Definitive Agreement --- EDGAR Online (Tue 5:05PM EST)
+\item Breaking Down Comcast's \$18B Deal with GE --- at Bloomberg (Tue 5:04PM EST)
+\item Comcast to Buy Out GE’s Stake in NBC for \$16.7 Billion --- at Bloomberg (Tue 5:04PM EST)
+\item After-Hours Buzz: CMCSA, GE, CLF \& More --- at CNBC (Tue 5:00PM EST)
+\item\ [video] Maria's Observation: State of the Union Address --- at CNBC (Tue 4:57PM EST)
+\item Comcast Beats Estimates, Boosts Dividend And Buys The Rest Of NBC From GE --- at Forbes (Tue 4:55PM EST)
+\item Comcast Buying G.E.'s Stake in NBCUniversal for \$16.7 Billion --- at New York Times (Tue 4:54PM EST)
+\item UPDATE 1-Comcast to buy rest of NBCUniversal from GE in \$16.7B deal --- at Reuters (Tue 4:50PM EST)
+\item GE to sell rest of NBC to Comcast for \$16.7 bln --- at MarketWatch (Tue 4:47PM EST)
+\item GE says to sell remaining 49 percent stake in NBC to Comcast --- Reuters (Tue 4:44PM EST)
+\item GE says to sell remaining 49 percent stake in NBC to Comcast --- at Reuters (Tue 4:41PM EST)
+\item Comcast Jumps 8\%: To Buy GE's NBC Stake for \$17B, Hikes Dividend 20\% --- at Barrons.com (Tue 4:41PM EST)
+\item Comcast to buy GE's stake in NBCUniversal for \$16.7 billion --- at Reuters (Tue 4:39PM EST)
+\item Comcast to buy GE's stake in NBCUniversal for \$16.7 bln --- at Reuters (Tue 4:37PM EST)
+\item GE Sells Remaining Stake in NBCUniversal Joint Venture and Related Assets to Comcast for \$18.1B --- Business Wire (Tue 4:34PM EST)
+\item\ [video] Porter Bibb: Comcast Is Undervalued --- at CNBC (Tue 4:31PM EST)
+\item InPlay: General Electric: Comcast to acquire General Electric's (GE) 49\% common equity ownership interest in NBCUniversal for approx. \$16.7 bln --- Briefing.com (Tue 4:30PM EST)
+\item Comcast to Buy Rest of GE's Stake in NBCUniversal --- at CNBC (Tue 4:30PM EST)
+\item Comcast to Buy GE Stake in NBCUniversal --- at Fox Business (Tue 3:39PM EST)
+\item Boeing Sees Batteries Investigated by NTSB and 2 Dow Movers to Track --- at Wall St. Cheat Sheet (Tue 2:18PM EST)
+\item Middday Glance: Tools and Appliances companies --- AP (Tue 1:36PM EST)
+\item Google, GE Announce Utility App Map Platform Pact --- at Investor's Business Daily (Tue 12:16PM EST)
+\item Americas Cyber Achilles Heel: Aging Critical Infrastructure --- at Fox Business (Tue 12:14PM EST)
+\item Is The Time Right For This Solar Giant? --- at Motley Fool (Tue 12:00PM EST)
+\end{itemize}
+
+\section*{GXP}
+\begin{itemize}
+\item Great Plains Energy Moves Up In Market Cap Rank, Passing United States Steel Corp. --- at Forbes (Tue 4:53PM EST)
+\item Daily Dividends Report: RNST, GXP, LNCE, MKSI, JJSF --- at Forbes (Tue 2:39PM EST)
+\item Great Plains Energy Incorporated Declares Dividends --- Business Wire (Tue 9:18AM EST)
+\end{itemize}
+
+\section*{LSI}
+\begin{itemize}
+\item ON Semiconductor Seems To Have Found Bottom --- at Investopedia (Tue 11:58AM EST)
+\end{itemize}
+
+\section*{LTC}
+\begin{itemize}
+\item 5 Overlooked REITs to Boost Your Portfolio --- at Motley Fool (Sat, Feb 9)
+\end{itemize}
+
+\section*{MSFT}
+\begin{itemize}
+\item Making Money in Africa! --- at Motley Fool (Tue 5:07PM EST)
+\item Microsoft's Surface Pro Will Be Back In Stock This Week --- Business Insider (Tue 5:03PM EST)
+\item Is This How Microsoft Beats Netflix and Apple? --- at Motley Fool (Tue 4:03PM EST)
+\item Microsoft Bing page filters State of the Union reaction by political slant --- at bizjournals.com (Tue 4:01PM EST)
+\item Apple Investor Proposes Shareholder Return Plan and 3 Tech Titans on the Move --- at Wall St. Cheat Sheet (Tue 3:48PM EST)
+\item Will This Company's Fortunes Turn Around? --- at Motley Fool (Tue 3:42PM EST)
+\item When And Why The Market Makes New Highs --- at Forbes (Tue 3:33PM EST)
+\item Another major Dell shareholder opposes \$24.4B sale --- AP (Tue 3:27PM EST)
+\item Should Investors Follow Billionaire Dan Loeb Out Of Yahoo? --- at Motley Fool (Tue 3:26PM EST)
+\item Microsoft making late leap into original content --- at bizjournals.com (Tue 3:26PM EST)
+\item Piper Jaffray \& Co.(PJC) Expert Analyst Details Three Key Growth Drivers for Data Storage Budgets that are Sending Buy Signals for Selected Stocks --- Wall Street Transcript (Tue 3:21PM EST)
+\item Yahoo's Marissa Mayer: Live From The Goldman Conference --- at Forbes (Tue 3:16PM EST)
+\item Dropbox tries to make nice with IT --- at Fortune (Tue 3:15PM EST)
+\item Does ARM Still Have Momentum? --- at Motley Fool (Tue 2:55PM EST)
+\item Intel plans to launch online TV service this year --- Reuters (Tue 2:48PM EST)
+\item UPDATE 1-Intel plans to launch online TV service this year --- at Reuters (Tue 2:47PM EST)
+\item Microsoft Looking For Love In All The Wrong Places --- at Motley Fool (Tue 2:30PM EST)
+\item Are Microsoft’s Tablet Prices Crushing Sales? --- at Wall St. Cheat Sheet (Tue 2:30PM EST)
+\item Consumers Are Furious Over the Short Supply of Microsoft Surface Pro Tablets --- at Minyanville (Tue 2:30PM EST)
+\item\ [video] Can Tim Cook Stop Apple's Slide? --- at CNBC (Tue 2:13PM EST)
+\item\ [video] Intel Enters TV Business --- at CNBC (Tue 2:11PM EST)
+\item Surface Pro Can Run Diablo III, Portal 2, Other AAA Games - Why Isn't Microsoft Evangelizing This? --- at Forbes (Tue 2:08PM EST)
+\item Who Can Put an End to Microsoft's Lost Decade (and a half)? --- at Motley Fool (Tue 2:01PM EST)
+\item Use Your Amex Card For Purchases On Twitter --- at TheStreet (Tue 1:52PM EST)
+\item Can Sony Get Back The "WOW" Factor? --- at Motley Fool (Tue 1:51PM EST)
+\end{itemize}
+
+\section*{NCR}
+\begin{itemize}
+\item The Volume Theory: Determining Which Stocks May Continue To Trade Higher --- at Seeking Alpha (Mon, Feb 11)
+\item NCR Delivers Modest 4Q --- Zacks (Mon, Feb 11)
+\end{itemize}
+
+\section*{NU}
+\begin{itemize}
+\item Storm May Bring NYC Snow Tomorrow as Weekend Threat Fades --- at Bloomberg (Tue 3:27PM EST)
+\end{itemize}
+
+\section*{SE}
+\begin{itemize}
+\item Spectra Energy Stock To Go Ex-dividend Tomorrow (SE) --- at TheStreet (Tue 9:53AM EST)
+\end{itemize}
+
+\section*{SNH}
+\begin{itemize}
+\item 5 Overlooked REITs to Boost Your Portfolio --- at Motley Fool (Mon, Feb 11)
+\end{itemize}
+
+\section*{T}
+\begin{itemize}
+\item Rackspace Shares Slide as Revenue Comes Up Short --- at TheStreet (Tue 4:39PM EST)
+\item AT\&T INC. Files SEC form 8-K, Other Events, Financial Statements and Exhibits --- EDGAR Online (Tue 4:27PM EST)
+\item Apple (AAPL) and Facebook (FB) Data Storage Budgets Send Signal to Selected Stocks: a Wall Street Transcript Interview with Andrew Nowinski, Assistant Vice President and Research Analyst at Piper Jaffray \& Co. --- Wall Street Transcript (Tue 3:15PM EST)
+\item Vodafone Warns Against Software Upgrade and 4 Telecom Titans Attracting Interest --- at Wall St. Cheat Sheet (Tue 2:03PM EST)
+\item Midday Glance: Telecom companies --- AP (Tue 1:36PM EST)
+\item Bet on Telecom 'Arms Race': Dan Niles --- at CNBC (Tue 1:26PM EST)
+\item 5 Stocks Pushing The Telecommunications Industry Higher --- at TheStreet (Tue 12:05PM EST)
+\item\ [video] Free Government Phones Got Into the Wrong Hands --- at MarketWatch (Tue 11:36AM EST)
+\item Ed Whitacre Tells the Truth; Samba Dancers: D.C. Scene --- at Bloomberg (Tue 11:07AM EST)
+\item Early Glance: Telecom companies --- AP (Tue 10:43AM EST)
+\item DISH Likely to Sell Spectrum --- Zacks (Tue 9:28AM EST)
+\item AT\&T Helps Re-Launch Pennsylvania Governor's School for the Sciences --- PR Newswire (Tue 9:00AM EST)
+\item Why FiveStars Moved From Silicon Valley to San Francisco --- at Forbes (Tue 8:40AM EST)
+\end{itemize}
+
+\section*{TDC}
+\begin{itemize}
+\item Why Are These 13 Tech Companies Afraid Of The Press? (Updated) --- at Forbes (Mon, Feb 11)
+\item Data Storage Expected to Growth 30\% CAGR: an Expert Sector Analyst Discusses the Manufacturing Costs for Flash and HDD, and He Identifies Key Verticals for Growth in the Industry --- Wall Street Transcript (Mon, Feb 11)
+\end{itemize}
+
+\section*{VZ}
+\begin{itemize}
+\item \$28 Billion Hedge Fund Winton Capital's Top Stock Picks For 2013 --- at Seeking Alpha (Tue 4:13PM EST)
+\item Why Is Verizon Reviewing Smartphone Apps? --- at New York Times (Tue 2:59PM EST)
+\item Midday Glance: Telecom companies --- AP (Tue 1:36PM EST)
+\item FCC Review Uncovers Abuse of Cell Phone Subsidies --- at Fox Business (Tue 1:30PM EST)
+\item Bet on Telecom 'Arms Race': Dan Niles --- at CNBC (Tue 1:26PM EST)
+\item Pennsylvania Verizon Wireless Enhances The Power Of Its 4G LTE Network In Wyndmoor, PA --- PR Newswire (Tue 12:40PM EST)
+\item What Makes Ken Fisher Bullish On These Stocks --- at Seeking Alpha (Tue 12:05PM EST)
+\item\ [video] Free Government Phones Got Into the Wrong Hands --- at MarketWatch (Tue 11:36AM EST)
+\item Corporate America's Cash Hoard Continues Growing --- at The Wall Street Journal (Tue 11:31AM EST)
+\item Early Glance: Telecom companies --- AP (Tue 10:43AM EST)
+\item DISH Likely to Sell Spectrum --- Zacks (Tue 9:28AM EST)
+\item\ [video] What it costs to make BlackBerry's Z10 --- at CNNMoney.com (Tue 7:33AM EST)
+\item Verizon: A Value Buy At The Current Price --- at Seeking Alpha (Tue 6:24AM EST)
+\end{itemize}
+
+\section*{XRX}
+\begin{itemize}
+\item Xerox Helps Mississippi and New Mexico become First States to Achieve HIPAA Compliance --- Business Wire (Tue 8:05AM EST)
+\end{itemize}
+
+\end{document}
