@@ -1,0 +1,377 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+% THIS TEMPLATE IS DATED 20111117
+
+\documentclass[11pt,asymmetric]{article}
+\usepackage[tmargin=1in, bmargin=1in, lmargin=0.5in, rmargin=0.5in]{geometry}
+\geometry{letterpaper}
+%\geometry{landscape} % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[fleqn,reqno]{amsmath}
+\usepackage{mathspec}			% replaces amssymb; do not use unicode-math
+\usepackage{url}
+\usepackage{datetime}		% allows \currenttime
+
+\usepackage[italic,noendash]{mathastext}	% propagates document text font to math mode; use option italic to get italic text in math mode
+
+\usepackage{mdwtab}				% allows the use of footnotes in tables
+\usepackage[hang,flushmargin]{footmisc}	% makes footnotes flush with margin, etc.
+\usepackage{setspace}			% control of line spacing
+\usepackage[normalem]{ulem}		% underlining (with ``normal emphasis'' retained)
+\usepackage{longtable}		% allows breaking of tables across pages with \begin{longtable}
+
+\newcommand\head[1]{\textbf{\textsf{#1}}}
+
+\setromanfont[Scale=1,Mapping=tex-text]{TeX Gyre Termes}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{TeX Gyre Heros Cn}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RE,LO]{\footnotesize{printed at \currenttime, \today}}
+\fancyfoot[C]{\thepage}
+\headheight14.5pt		% this value chosen in response to warning messages
+
+
+\frenchspacing
+\raggedright
+
+\parskip9pt
+
+
+
+\title{Stock Prices}
+
+\setlength{\parindent}{0cm}	% no paragraph indent
+
+\begin{document}
+\maketitle
+
+\begin{table}[htdp]
+\begin{center}
+\begin{tabular}{|l|>{\raggedright}p{.75in}|>{\flushright}p{.5in}|>{\flushright}p{.5in}|>{\flushright}p{.55in}|p{.5in}|>{\raggedright}p{.7in}|p{.7in}|}\hline
+\head{Ticker} & \head{Last Trade Date} & \head{Last Trade} & \head{Change} & \head{\% Change} & \head{Dividend/ Share} & \head{Dividend Pay Date} & \head{Ex-dividend Date} \\\hline
+\head{ALU} & 2/14/2013 & 1.59 & -0.03 & -1.85\% & 0.00 & 29-Jun-07 & 31-May-07\\ \hline
+\head{BDN} & 2/14/2013 & 13.34 & 0.00 & 0 & 0.60 & Jan 18 & Jan  2\\ \hline
+\head{BRT} & 2/14/2013 & 7.12 & +0.12 & +1.71\% & 0.00 & 30-Oct-09 & 19-Sep-08\\ \hline
+\head{CLP} & 2/14/2013 & 21.80 & -0.06 & -.27\% & 0.75 & Feb 11 & Jan 31\\ \hline
+\head{CMCSA} & 2/14/2013 & 40.34 & +0.21 & +.52\% & 0.652 & Apr 24 & Dec 28\\ \hline
+\head{DTE} & 2/14/2013 & 64.36 & -0.04 & .-6\% & 2.416 & Apr 15 & Dec 17\\ \hline
+\head{DUK} & 2/14/2013 & 68.00 & -0.82 & -1.19\% & 3.045 & Mar 18 & Feb 13\\ \hline
+\head{EQY} & 2/14/2013 & 23.59 & -0.09 & -.38\% & 0.88 & Dec 31 & Dec 13\\ \hline
+\head{FB} & 2/14/2013 & 28.50 & +0.5925 & +2.12\% & 0.00 & N/A & N/A\\ \hline
+\head{FMAGX} & 2/13/2013 & 77.78 & +0.06 & +.7\% & N/A & N/A & N/A\\ \hline
+\head{FRIFX} & 2/13/2013 & 11.76 & +0.01 & +.8\% & N/A & N/A & N/A\\ \hline
+\head{FTR} & 2/14/2013 & 4.24 & -0.26 & -5.77\% & 0.40 & Dec 31 & Dec  5\\ \hline
+\head{GE} & 2/14/2013 & 23.41 & +0.02 & +.8\% & 0.70 & Jan 25 & Dec 20\\ \hline
+\head{GXP} & 2/14/2013 & 21.92 & -0.15 & -.67\% & 0.856 & Mar 20 & Nov 27\\ \hline
+\head{LSI} & 2/14/2013 & 7.29 & +0.18 & +2.53\% & 0.00 & N/A & N/A\\ \hline
+\head{LTC} & 2/14/2013 & 38.11 & -0.15 & -.39\% & 1.80 & Feb 28 & Jan 18\\ \hline
+\head{MSFT} & 2/14/2013 & 28.04 & +0.01 & +.3\% & 0.63 & Mar 14 & Nov 13\\ \hline
+\head{NCR} & 2/14/2013 & 28.73 & +0.02 & +.6\% & 0.00 & N/A &  1-Oct-07\\ \hline
+\head{NU} & 2/14/2013 & 40.76 & -0.33 & -.80\% & 1.323 & Mar 28 & Nov 28\\ \hline
+\head{SE} & 2/14/2013 & 29.56 & +0.12 & +.40\% & 1.17 & Mar 11 & Feb 13\\ \hline
+\head{SNH} & 2/14/2013 & 24.72 & +0.21 & +.85\% & 1.54 & Feb 20 & Jan 17\\ \hline
+\head{T} & 2/14/2013 & 35.29 & -0.13 & -.36\% & 1.77 & Feb  1 & Jan  8\\ \hline
+\head{TDC} & 2/14/2013 & 62.15 & +0.47 & +.76\% & 0.00 & N/A & N/A\\ \hline
+\head{VZ} & 2/14/2013 & 44.33 & -0.19 & -.42\% & 2.03 & Feb  1 & Jan  8\\ \hline
+\head{XRX} & 2/14/2013 & 8.03 & +0.03 & +.37\% & 0.172 & Jan 31 & Dec 27\\ \hline
+\end{tabular}
+ \end{center}
+ \end{table}%
+\clearpage
+
+\section*{ALU}
+\begin{itemize}
+\item Billionaire Steve Cohen Is Betting on This Tech Stock --- at Motley Fool (Thu 2:12PM EST)
+\item Verizon Customers Still Frustrated in NYC and 4 Telecom Titans Attracting Interest --- at Wall St. Cheat Sheet (Thu 2:09PM EST)
+\item How Slow and Steady is Cisco? --- at Wall St. Cheat Sheet (Thu 11:03AM EST)
+\end{itemize}
+
+\section*{BDN}
+\begin{itemize}
+\item Brandywine Realty Trust Announces Tax Characteristics of Its 2012 Distributions --- PR Newswire (Mon, Feb 11)
+\end{itemize}
+
+\section*{BRT}
+\begin{itemize}
+\item BRT REALTY TRUST Financials --- EDGAR Online Financials (Wed, Feb 13)
+\end{itemize}
+
+\section*{CLP}
+\begin{itemize}
+\item COLONIAL PROPERTIES TRUST Files SEC form 8-K/A, Results of Operations and Financial Condition, Regulation FD Disclosu --- EDGAR Online (Thu, Feb 7)
+\item Colonial Properties Trust Sells Metropolitan Midtown for \$94 Million --- Business Wire (Thu, Feb 7)
+\end{itemize}
+
+\section*{CMCSA}
+\begin{itemize}
+\item Advertising helps lift CBS fourth-quarter profit --- at Reuters (Thu 4:11PM EST)
+\item Buffett's Heinz deal points to rebounding U.S. M\&A business --- Reuters (Thu 4:06PM EST)
+\item Did Comcast Get a Bargain Deal? --- at Motley Fool (Thu 3:38PM EST)
+\item GE Looks Poised To Further Increase Its Dividend And Make Industrial Acquisitions --- at Seeking Alpha (Thu 3:21PM EST)
+\item M\&A Surges as Confidence Spurs Deals in Computers to Condiments --- at Bloomberg (Thu 3:07PM EST)
+\item Comcast: RBC Ups To Outperform; Target Now \$46 --- at Forbes (Thu 2:56PM EST)
+\item Lansdowne Partners Holdings in 4th Quarter: 13F Alert --- at Bloomberg (Thu 2:49PM EST)
+\item Blockbuster 4Q for DIRECTV --- Zacks (Thu 2:48PM EST)
+\item 3 Buyouts That Just Make Sense --- at Motley Fool (Thu 2:31PM EST)
+\item\ [video] Millionaire Matchmaker's Valentine's Do's, Don'ts --- at MarketWatch (Thu 1:34PM EST)
+\item Midday Glance: Media companies --- AP (Thu 1:17PM EST)
+\item Dormant M\&A World Finally Showing Signs of Life --- at Fox Business (Thu 1:15PM EST)
+\item NetSpend Upgraded to Neutral and 3 Upgraded Stocks on the Move --- at Wall St. Cheat Sheet (Thu 1:15PM EST)
+\item Morning MarketBeat: Does 'Great Rotation' Even Matter? --- at The Wall Street Journal (Thu 12:34PM EST)
+\item DirecTV Fourth-Quarter Profit Jumps on Latin American Growth --- at Bloomberg (Thu 11:42AM EST)
+\item After Striking a Deal, What's an Investor to Think of General Electric and Comcast? --- at Motley Fool (Thu 11:39AM EST)
+\item DirecTV 4Q earnings, revenue beat expectations --- AP (Thu 11:23AM EST)
+\item NBC deal not the only Comcast news: Earnings call full of fascinating updates --- at bizjournals.com (Thu 11:00AM EST)
+\item EnerNOC Target Raised after Q4 Results and 4 Stock Analyses Turning Heads --- at Wall St. Cheat Sheet (Thu 11:00AM EST)
+\item Early Glance: Media companies --- AP (Thu 10:32AM EST)
+\item AMC Networks’ Surging Valuation May Prompt Sale --- at Bloomberg (Thu 10:08AM EST)
+\item Stock Upgrades: Get to Know Your Nabors --- at Minyanville (Thu 9:20AM EST)
+\item Media Journal: Time Warner in Talks to Unload Magazines --- at The Wall Street Journal (Thu 9:06AM EST)
+\item Company News for February 14, 2013 --- Zacks (Thu 8:32AM EST)
+\item Comcast price target raised to \$48 from \$45 at Brean Capital --- theflyonthewall.com (Thu 7:53AM EST)
+\end{itemize}
+
+\section*{DTE}
+\begin{itemize}
+\item DTE Energy Upgraded to Outperform --- Zacks (Thu 4:08PM EST)
+\item Cloud Peak Beats EPS, Sales Trail --- Zacks (Thu 3:28PM EST)
+\item Forbes Earnings Preview: DTE Energy --- at Forbes (Thu 12:46PM EST)
+\end{itemize}
+
+\section*{DUK}
+\begin{itemize}
+\item Revealed: Triangle's top M\&A deals of 2012 --- at bizjournals.com (Thu 3:06PM EST)
+\item Questions raised about NC Senate bill to dismiss utility commissioners --- at bizjournals.com (Thu 2:47PM EST)
+\item Midday Glance: Utilities companies --- AP (Thu 1:18PM EST)
+\item Cincinnati might scrap streetcar track bids, start over --- at bizjournals.com (Thu 11:59AM EST)
+\item Early Glance: Utilities companies --- AP (Thu 10:32AM EST)
+\item New Star Analyst Rankings for Duke Energy Corporation (Holdin --- StarMine (Thu 9:17AM EST)
+\item Company News for February 14, 2013 --- Zacks (Thu 8:32AM EST)
+\item Florida city hopes manatees fill void left by retired nuclear plant --- at Reuters (Thu 8:00AM EST)
+\item Reiterate Buy On This Utility Giant For Your Dividend Income Portfolio --- at Seeking Alpha (Thu 7:40AM EST)
+\item Asia stocks rise amid positive US company news --- AP (Thu 12:21AM EST)
+\end{itemize}
+
+\section*{EQY}
+\begin{itemize}
+\item Gazit-Globe to Combat Web Shopping With Doctor Tenants, CEO Says --- at Bloomberg (Wed, Feb 6)
+\end{itemize}
+
+\section*{FB}
+\begin{itemize}
+\item\ [video] Rachel Roy Debuts Digital Runway Show --- at MarketWatch (Thu 4:15PM EST)
+\item Windows Of Opportunity In Mobile Advertising Firms --- at Seeking Alpha (Thu 3:59PM EST)
+\item Yahoo Buys Mobile Apps Developer --- Zacks (Thu 3:41PM EST)
+\item\ [video] Social Media Analysis Comes to NYSE --- at MarketWatch (Thu 3:10PM EST)
+\item\ [video] Stock Picks: Date, Marry or Divorce? --- at CNBC (Thu 2:55PM EST)
+\item It's Not Super WiFi, but It's Still Important: The Debate Over 'Unlicensed Spectrum' --- at Minyanville (Thu 2:45PM EST)
+\item Show Your Valentine How Much You Care With a Randomly Chosen Facebook Gift --- at AllThingsD (Thu 2:43PM EST)
+\item Tiger Global Management Adds Groupon, Pandora, Cuts Facebook, Yahoo, LinkedIn: 4Q Filing --- at Barrons.com (Thu 2:24PM EST)
+\item The Cloud’s Dirty Little Secret --- at AllThingsD (Thu 2:14PM EST)
+\item Facebook Sees Rating Slashed to Sell and 3 Social Media Stocks Action --- at Wall St. Cheat Sheet (Thu 2:12PM EST)
+\item Afraid Of LinkedIn's Valuation? You Shouldn't Be --- at Seeking Alpha (Thu 1:42PM EST)
+\item Facebook Finally Gets This Break --- at Wall St. Cheat Sheet (Thu 1:36PM EST)
+\item\ [video] Angie's List Fueling Russell 2000 --- at CNBC (Thu 1:34PM EST)
+\item Most active Nasdaq-traded stocks --- AP (Thu 1:18PM EST)
+\item Protesters Dislike Zuckerberg Fundraiser for Christie --- at CNBC (Thu 1:15PM EST)
+\item Why Facebook Users Are Seeing a Valentine's Day Ad for Gifts --- at The Wall Street Journal (Thu 12:46PM EST)
+\item\ [video] What the Big Money Is Doing --- at CNBC (Thu 12:30PM EST)
+\item Mark Zuckerberg Now Owns Almost 30\% of Facebook --- at CNBC (Thu 12:21PM EST)
+\item Love for Sale: Will 2013 Mimic the 2003 Stock Market? --- at Minyanville (Thu 11:30AM EST)
+\item\ [video] Emerging Country Markets Slowing Says Nestle CEO --- at MarketWatch (Thu 11:26AM EST)
+\item Instagram asks court to throw out lawsuit over service terms --- Reuters (Thu 11:22AM EST)
+\item How Instagram Can Help You Find Love --- Business Insider (Thu 11:13AM EST)
+\item 2013 Will Be Brutal for CEOs: Salzman --- at CNBC (Thu 11:12AM EST)
+\item Fund-Raising for Schools, Using Old Class Photos --- at New York Times (Thu 11:06AM EST)
+\item Expect an Apple TV Event in March: Analyst --- at CNBC (Thu 10:47AM EST)
+\end{itemize}
+
+\section*{FMAGX}
+\begin{itemize}
+\item Fidelity: Another Big Apple Seller, Including Magellan --- at Barrons.com (Wed, Jan 30)
+\end{itemize}
+
+\section*{FRIFX}
+\begin{itemize}
+\item Top 5 Zacks \#1 Ranked Real Estate Mutual Funds --- Zacks (Thu, Nov 29)
+\end{itemize}
+
+\section*{FTR}
+\begin{itemize}
+\item Ma Bell Looks to the Future --- at Motley Fool (Thu 3:56PM EST)
+\item CenturyLink Tanks on Dividend Cut, Other Telcos Sag --- at Barrons.com (Thu 3:07PM EST)
+\item 4 Hot Stocks to Trade (or Not) --- at TheStreet (Thu 2:21PM EST)
+\item Dividend Cut Causes a Run on Small Telecoms --- at Motley Fool (Thu 1:03PM EST)
+\item CenturyLink sinks other wireline carriers --- at MarketWatch (Thu 12:52PM EST)
+\item Notable Two Hundred Day Moving Average Cross - FTR --- at Forbes (Thu 11:43AM EST)
+\item Frontier Communications Corp Class B Stock Falls On Unusually High Volume (FTR) --- at TheStreet (Thu 10:54AM EST)
+\item Frontier Communications Warns Customers of Increased Phone and Internet Scams --- Business Wire (Thu 8:00AM EST)
+\item CenturyLink Shocks The Market With Its Dividend Cut --- at Seeking Alpha (Thu 12:18AM EST)
+\end{itemize}
+
+\section*{GE}
+\begin{itemize}
+\item Buffett's Heinz deal points to rebounding U.S. M\&A business --- Reuters (Thu 4:06PM EST)
+\item Is Diversification Good or Bad? --- at Motley Fool (Thu 4:01PM EST)
+\item GE Looks Poised To Further Increase Its Dividend And Make Industrial Acquisitions --- at Seeking Alpha (Thu 3:21PM EST)
+\item GE’s Evolve™ LED Scalable Cobrahead Fixture Wins Best-in-Class “Roadway Lighting” Award in Next Generation Luminaires™ Competition --- Business Wire (Thu 3:14PM EST)
+\item CenturyLink Sees Sharp Drop and 3 Heavily Traded Shares Moving Now --- at Wall St. Cheat Sheet (Thu 3:03PM EST)
+\item GE Extends JCP Credit Card Program --- Zacks (Thu 2:58PM EST)
+\item MetLife says it's no longer bank holding company --- AP (Thu 2:32PM EST)
+\item 3 Buyouts That Just Make Sense --- at Motley Fool (Thu 2:30PM EST)
+\item Dow Today: General Electric (GE) Lower --- at TheStreet (Thu 2:00PM EST)
+\item Most active New York Stock Exchange-traded stocks --- AP (Thu 1:18PM EST)
+\item Middday Glance: Tools and Appliances companies --- AP (Thu 1:17PM EST)
+\item Dormant M\&A World Finally Showing Signs of Life --- at Fox Business (Thu 1:15PM EST)
+\item UPDATE 1-MetLife gets regulatory nod to drop bank-holding tag --- at Reuters (Thu 1:10PM EST)
+\item MetLife gets regulatory nod to shed bank-holding status --- at Reuters (Thu 12:33PM EST)
+\item GE Leader Directs Recognition Award in the Amount of \$25,000 to UConn’s Sandy Hook School Memorial Scholarship Fund --- Business Wire (Thu 11:53AM EST)
+\item After Striking a Deal, What's an Investor to Think of General Electric and Comcast? --- at Motley Fool (Thu 11:38AM EST)
+\item ETF of the Week: Industrial SPDR (XLI) --- Zacks (Thu 11:11AM EST)
+\item Solstice adds Harborque property to GE site redevelopment; Bozzuto Group joins project --- at bizjournals.com (Thu 11:06AM EST)
+\item NBC deal not the only Comcast news: Earnings call full of fascinating updates --- at bizjournals.com (Thu 11:00AM EST)
+\item Early Glance: Tools and Appliances companies --- AP (Thu 10:32AM EST)
+\item Rolls-Royce Aims to Sustain Profit Gain on Airliner Demand --- at Bloomberg (Thu 9:37AM EST)
+\item New Stock Coverage: Profit From Pawn Stars --- at Minyanville (Thu 9:17AM EST)
+\item Stocks Are the Only Option for Investors: Jack Welch --- at CNBC (Thu 9:08AM EST)
+\item 5 Stocks Poised To Rally With Solid Upside And Catalysts --- at Seeking Alpha (Thu 8:30AM EST)
+\item Stock Market News for February 14, 2013 --- Zacks (Thu 8:24AM EST)
+\end{itemize}
+
+\section*{GXP}
+\begin{itemize}
+\item GREAT PLAINS ENERGY INC Files SEC form 8-K, Change in Directors or Principal Officers --- EDGAR Online (Thu 8:39AM EST)
+\item Great Plains Energy completes leadership transition --- theflyonthewall.com (Thu 8:36AM EST)
+\item Great Plains Energy Announces Successful Completion of Leadership Transition --- Business Wire (Thu 8:30AM EST)
+\end{itemize}
+
+\section*{LSI}
+\begin{itemize}
+\item 5 Stocks Pushing The Electronics Industry Higher --- at TheStreet (Thu 12:03PM EST)
+\item LSI: A Debt Free \$7 Tech Stock --- at Seeking Alpha (Thu 6:05AM EST)
+\end{itemize}
+
+\section*{LTC}
+\begin{itemize}
+\item LTC Announces Details of Fourth Quarter Conference Call --- Business Wire (Thu 9:30AM EST)
+\end{itemize}
+
+\section*{MSFT}
+\begin{itemize}
+\item Arthur Levitt joins board of stock-picking startup --- at Fortune (Thu 4:03PM EST)
+\item Arthur Levitt joins board of stock-picking startup --- at Fortune (Thu 3:58PM EST)
+\item Are Industry-Wide Ad Revenues at Risk? --- at Wall St. Cheat Sheet (Thu 3:45PM EST)
+\item The Past, Present, And Future Of Nokia --- at Seeking Alpha (Thu 3:38PM EST)
+\item 2 Storage Makers With Significant Upside Potential --- at Motley Fool (Thu 3:22PM EST)
+\item Apple Seeks Continuous Image Patent and 3 Tech Titans on the Move --- at Wall St. Cheat Sheet (Thu 2:57PM EST)
+\item Billionaire Ray Dalio's Top Picks From Q4 --- at Seeking Alpha (Thu 2:52PM EST)
+\item Flextronics woos startups with Silicon Valley tech center --- Reuters (Thu 2:48PM EST)
+\item Apple's \$137 Billion in Cash: What Would Buffett Do? --- at Motley Fool (Thu 2:47PM EST)
+\item Heinz Gives Taste of New Buyout Sauce --- at New York Times (Thu 2:47PM EST)
+\item It's Not Super WiFi, but It's Still Important: The Debate Over 'Unlicensed Spectrum' --- at Minyanville (Thu 2:45PM EST)
+\item 3 Buyouts That Just Make Sense --- at Motley Fool (Thu 2:30PM EST)
+\item Flextronics woos startups with Silicon Valley tech center --- at Reuters (Thu 2:03PM EST)
+\item 3 Trading Ideas As Microsoft Enters Cheap Phone Segment --- at TheStreet (Thu 1:52PM EST)
+\item Google Signs Global Advertising Deal with Yahoo! --- at Motley Fool (Thu 1:40PM EST)
+\item 4 Tech Stock Stories for Thursday Download --- at Wall St. Cheat Sheet (Thu 1:36PM EST)
+\item P\&G Employs Crowdfunding and 2 Dow Movers to Follow --- at Wall St. Cheat Sheet (Thu 1:00PM EST)
+\item Big Moves by Seth Klarman’s Baupost Group --- at Motley Fool (Thu 12:56PM EST)
+\item Dell CEO agreed to lower shares' value to push \$24 billion buyout --- Reuters (Thu 12:52PM EST)
+\item Dell CEO agreed to lower shares' value to push \$24 bln buyout --- at Reuters (Thu 12:50PM EST)
+\item Tech Sector Struggles -- And Not Just Because of Apple --- at Minyanville (Thu 12:20PM EST)
+\item Getting Real About Apple --- at Motley Fool (Thu 12:06PM EST)
+\item Apple Wins Big Government Account for 10K iPhones, iPads --- at Forbes (Thu 11:47AM EST)
+\item Oscar Aids Kids With Cancer; Lawmaker Blues: D.C.Scene --- at Bloomberg (Thu 11:45AM EST)
+\item 12 Years After The Bubble Cisco Is Ripe For The Taking: Update --- at Seeking Alpha (Thu 11:28AM EST)
+\end{itemize}
+
+\section*{NCR}
+\begin{itemize}
+\item IceWEB Inc. (IWEB) CEO Rob Howe Interviews with The Wall Street Transcript --- Wall Street Transcript (Thu 10:28AM EST)
+\end{itemize}
+
+\section*{NU}
+\begin{itemize}
+\item Forbes Earnings Preview: Northeast Utilities System --- at Forbes (Thu 12:03PM EST)
+\end{itemize}
+
+\section*{SE}
+\begin{itemize}
+\item Spectra Energy Stock To Go Ex-dividend Tomorrow (SE) --- at TheStreet (Tue, Feb 12)
+\end{itemize}
+
+\section*{SNH}
+\begin{itemize}
+\item 5 Overlooked REITs to Boost Your Portfolio --- at Motley Fool (Mon, Feb 11)
+\end{itemize}
+
+\section*{T}
+\begin{itemize}
+\item Ma Bell Looks to the Future --- at Motley Fool (Thu 3:54PM EST)
+\item America Movil Still A Buy After Painful Margin Squeeze --- at Seeking Alpha (Thu 3:54PM EST)
+\item Are Industry-Wide Ad Revenues at Risk? --- at Wall St. Cheat Sheet (Thu 3:45PM EST)
+\item Equinix Beats EPS Est, Revs Grow --- Zacks (Thu 3:17PM EST)
+\item\ [video] Best Dividend Picks for Exposure to Apple --- at TheStreet (Thu 2:57PM EST)
+\item MetroPCS Investor Plans to Lead Fight Against T-Mobile --- at Bloomberg (Thu 2:49PM EST)
+\item It's Not Super WiFi, but It's Still Important: The Debate Over 'Unlicensed Spectrum' --- at Minyanville (Thu 2:45PM EST)
+\item Verizon Customers Still Frustrated in NYC and 4 Telecom Titans Attracting Interest --- at Wall St. Cheat Sheet (Thu 2:09PM EST)
+\item AT\&T Expands LTE --- Zacks (Thu 1:58PM EST)
+\item Pay Your Wireless Bill With AT\&T Dividends --- at Seeking Alpha (Thu 1:34PM EST)
+\item Midday Glance: Telecom companies --- AP (Thu 1:18PM EST)
+\item Unemployment Claims Fall, but So Does the Dow --- at Motley Fool (Thu 1:08PM EST)
+\item CenturyLink cuts dividend, stock craters --- AP (Thu 12:29PM EST)
+\item Why Bad News Can't Hold Down the Dow --- at Motley Fool (Thu 12:01PM EST)
+\item Apple’s Price Cut On Macs Shows What’s Going Wrong at the Company --- The Daily Ticker (Thu 11:10AM EST)
+\item Early Glance: Telecom companies --- AP (Thu 10:32AM EST)
+\item AT\&T's Michigan Avenue Flagship Brand Store Takes Home International Retail Design Institute Awards --- PR Newswire (Thu 9:30AM EST)
+\item AT\&T 4G LTE Expands In Westchester County --- PR Newswire (Thu 6:00AM EST)
+\item Thriving on the dividend and buyback diet --- at Fortune (Thu 5:04AM EST)
+\item CenturyLink Shocks The Market With Its Dividend Cut --- at Seeking Alpha (Thu 12:18AM EST)
+\item AT\&T Positioned As An Industry Leader In Gartner's "Magic Quadrant For Asia/Pacific Network Service Providers 2012 Report" --- PR Newswire (Thu 12:01AM EST)
+\item AT\&T Expands 4G LTE Coverage To More Customers In Charlotte And Surrounding Areas --- PR Newswire (Thu 12:00AM EST)
+\item AT\&T Expands 4G LTE Coverage To More Fayetteville Customers --- PR Newswire (Thu 12:00AM EST)
+\end{itemize}
+
+\section*{TDC}
+\begin{itemize}
+\item Yahoo! JAPAN Upgrades Teradata Analytics Platform --- PR Newswire (Thu 11:42AM EST)
+\end{itemize}
+
+\section*{VZ}
+\begin{itemize}
+\item\ [video] Best Dividend Picks for Exposure to Apple --- at TheStreet (Thu 2:57PM EST)
+\item Why Amazon's Latest Content Deal Is a Big Deal --- at Motley Fool (Thu 2:44PM EST)
+\item Verizon Customers Still Frustrated in NYC and 4 Telecom Titans Attracting Interest --- at Wall St. Cheat Sheet (Thu 2:09PM EST)
+\item Coinstar or Netflix in 2013? --- at Motley Fool (Thu 2:04PM EST)
+\item AT\&T Expands LTE --- Zacks (Thu 1:58PM EST)
+\item Midday Glance: Telecom companies --- AP (Thu 1:18PM EST)
+\item Unemployment Claims Fall, but So Does the Dow --- at Motley Fool (Thu 1:08PM EST)
+\item CenturyLink cuts dividend, stock craters --- AP (Thu 12:29PM EST)
+\item Why Bad News Can't Hold Down the Dow --- at Motley Fool (Thu 12:01PM EST)
+\item Apple’s Price Cut On Macs Shows What’s Going Wrong at the Company --- The Daily Ticker (Thu 11:10AM EST)
+\item How High Can This Company Go? --- at Motley Fool (Thu 10:58AM EST)
+\item Early Glance: Telecom companies --- AP (Thu 10:32AM EST)
+\item Verizon Invested More Than \$525 Million in 2012 on Wireline Communications, IT Infrastructure in Pennsylvania --- PR Newswire (Thu 10:20AM EST)
+\item Dow Today: Verizon Communications (VZ) Leads The Day Higher, Cisco Systems (CSCO) Lags --- at TheStreet (Thu 10:00AM EST)
+\item Verizon Invested More Than \$105 Million in 2012 on Wireline Communications, IT Infrastructure in Delaware --- PR Newswire (Thu 9:48AM EST)
+\item Stock Upgrades: Get to Know Your Nabors --- at Minyanville (Thu 9:20AM EST)
+\item Verizon Communications Inc Stock Hold Recommendation Reiterated (VZ) --- at TheStreet (Thu 9:00AM EST)
+\item 6 high-dividend stocks with upside potential --- at MarketWatch (Thu 7:01AM EST)
+\item CenturyLink Shocks The Market With Its Dividend Cut --- at Seeking Alpha (Thu 12:18AM EST)
+\end{itemize}
+
+\section*{XRX}
+\begin{itemize}
+\item U.S.-based inventors lead world in nanotechnology patents: study --- Reuters (Thu 11:26AM EST)
+\item U.S.-based inventors lead world in nanotechnology patents -study --- at Reuters (Thu 10:24AM EST)
+\item 4 Bargain Stocks With Top Free Cash Flow Yields --- at TheStreet (Thu 9:30AM EST)
+\item 5 Stocks Poised To Rally With Solid Upside And Catalysts --- at Seeking Alpha (Thu 8:30AM EST)
+\end{itemize}
+
+\end{document}
