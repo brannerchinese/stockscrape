@@ -28,6 +28,8 @@ Notes
 
 This version is not a true scraper; it merely downloads individual web pages and uses simple regex to isolate the most recent day's headlines. I intend to use this as a foundation for a true scraper.
 
+Output contains first a table of stock prices and related data, from the Yahoo API, followed by a list of recent headlines for each stock ticker. The LaTeX package `longtable` is used, to allow breaking of tables across pages if they exceed the amount of available space on the first page.
+
 New in this version
 -------------------
 1. Refactored to modularize all major processes, for easier testing and improvement.
