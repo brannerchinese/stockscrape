@@ -13,15 +13,15 @@ To explore web scraping using the headline news service on (finance.yahoo.com).
 Principal Contents
 ------------------
 
-stockscrape32.py: Version for Python 3.2 only.
+`stockscrape32.py`: Version for Python 3.2 only.
 
-OUTPUT: where output file, stock_report.tex is saved. Note that this file needs to be compiled with LaTeX in order to be usable.
+`OUTPUT/`: where output file, stock_report.tex is saved. Note that this file needs to be compiled with LaTeX in order to be usable.
 
-CODE: contains .tex templates for beginning and end of output file.
+`CODE/`: contains .tex templates for beginning and end of output file.
 
-DATA: contains .txt file of stock tickers to be looked up, one per line.
+`DATA/`: contains .txt file of stock tickers to be looked up, one per line.
 
-PREVIOUS_VERSIONS: previous versions will be stored here with date appended, but they may not run as is because directory structures have changed. See past commits of the repository for complete working installations of these older versions.
+`PREVIOUS_VERSIONS/`: previous versions will be stored here with date appended, but they may not run as is because directory structures have changed. See past commits of the repository for complete working installations of these older versions.
 
 Notes
 -----
