@@ -15,11 +15,11 @@ Principal Contents
 
 `stockscrape32.py`: Version for Python 3.2 only.
 
-`OUTPUT/`: where output file, stock_report.tex is saved. Note that this file needs to be compiled with LaTeX in order to be usable.
+`OUTPUT/`: where output file, `stock_report.tex` is saved. Note that this file needs to be compiled with LaTeX in order to be usable.
 
-`CODE/`: contains .tex templates for beginning and end of output file.
+`CODE/`: contains `.tex` templates for beginning and end of output file.
 
-`DATA/`: contains .txt file of stock tickers to be looked up, one per line.
+`DATA/`: contains `.txt` file of stock tickers to be looked up, one per line.
 
 `PREVIOUS_VERSIONS/`: previous versions will be stored here with date appended, but they may not run as is because directory structures have changed. See past commits of the repository for complete working installations of these older versions.
 
@@ -35,7 +35,7 @@ New in this version
 1. Refactored to modularize all major processes, for easier testing and improvement.
 1. Main program now runs from top level of directory; input and output files are all in subdirectories.
 1. Improved commenting and docstrings.
-1. Version for Python 2.7 relegated to PREVIOUS_VERSIONS/ .
+1. Version for Python 2.7 relegated to `PREVIOUS_VERSIONS/`.
 
 ---
 
