@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # stockscrape32.py
-# 20130214, works
+# 20130213, works
 # Run with Python 3.2
 
 import datetime as D
@@ -29,7 +29,6 @@ def main(filename='stock_list.txt'):
     print('Finished headlines.')
 
 def process_tickers(contents, running_text):
-    """Gather stock data from Yahoo API and output as LaTeX table."""
     list_items = ['Symbol', 'Last trade date', 'Last trade', 'Change',
             'Dividend/share', 'Dividend pay date', 'Ex-dividend date']
     # Create list of tickers

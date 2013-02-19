@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # yahoo_lookup27.py
-# 20130211
+# 20130211, works
 # Runs with: Python 2.7
 
 import datetime as D
