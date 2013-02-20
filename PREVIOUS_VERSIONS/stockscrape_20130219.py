@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # stockscrape32.py
-# 20130220, works
+# 20130219, works
 # Run with Python 3.2
 
 import datetime as D
-import urllib.request as UR
-import urllib.error as UE
+import urllib as U
 import collections as C
 import re
 import os
@@ -38,9 +37,11 @@ def process_tickers(contents, running_tex_str):
     data = lookup(tickers, list_items)
     list_items.insert(4, 'Percent change')
     for row_dict in data:
+        line_for_table = []
         row_dict = format_data(row_dict)
         # create list of items to go into line of .tex table
-        line_for_table = [row_dict[item] for item in list_items]
+        for item in list_items:
+            line_for_table.append(row_dict[item])
         running_tex_str += ' & '.join(line_for_table) + '\\\\ \hline\n'
     running_tex_str += '\\end{tabular}\n \\end{center}\n \\end{table}%\n\\clearpage'
     print('\nFinished prices.\n')
@@ -66,7 +67,7 @@ def process_news(contents, running_tex_str):
             for i in headline_list:
             # Convert headline_list into string
                 running_tex_str += '\n\item ' + i[0] + ' (' + i[2] + \
-                        ': ' + i[3] + ')'
+                        ') ' + i[3] + ')'
             running_tex_str = running_tex_str.replace('\item [', '\item\\ [')
             running_tex_str += '\n\end{itemize}'
         else:
@@ -101,11 +102,11 @@ def process_url(url, split_here = ''):
          if  URL error, quit.
     """
     try:
-        data_list = UR.urlopen(url).read().strip()
+        data_list = U.request.urlopen(url).read().strip()
         # As of Py3 we get error "Type str doesn't support the buffer API"
         # So convert to Unicode now, because what we received is bytecode
         data_list = data_list.decode().split(split_here) 
-    except UE.URLError as e:
+    except U.error.URLError as e:
         print('There is a URLerror\n{0}.').format(e) 
         quit()
     return data_list
@@ -118,8 +119,8 @@ def retrieve_webpage(symbol):
     today = D.date.today().strftime('\%Y-\%m-\%d')
     url = 'http://finance.yahoo.com/q/h?s=' + symbol + '&t=' + today
     try:
-        data_list = UR.urlopen(url).read().strip()
-    except UE.URLError as e:
+        data_list = U.request.urlopen(url).read().strip()
+    except U.error.URLError as e:
         print('There is a URLerror\n{0}.').format(e)
         quit()
     webpage = BS(data_list)
@@ -199,10 +200,11 @@ def lookup(tickers, list_items, stats = 'sd1l1c1dr1q'):
     for item in data_list:
         one_row = item.split(',')
         # Next: build dictionary for each "item"
-        #   and append to list full_data
-        #   also, strip quotes while adding item to one_row_dict
-        one_row_dict = {list_item: row_item.strip('"')
-                for list_item, row_item in zip(list_items, one_row)}
+        #   and then append to list full_data
+        one_row_dict = {}
+        for i in range(len(list_items)):
+            # Strip quotes while adding item to one_row_dict
+            one_row_dict[list_items[i]] = one_row[i].strip('"')
         full_data.append(one_row_dict)
     return full_data
 
@@ -213,10 +215,13 @@ def write_contents(running_tex_str):
     Out: Write the contents of the argument and save together with the file_end template.
          Output is saved to OUTPUT directory; we return in main directory.
     """
-    with open(os.path.join('CODE', 'file_end.tex'), 'r') as f:
+    os.chdir('CODE')
+    with open('file_end.tex', 'r') as f:
         running_tex_str += f.read()
-    with open(os.path.join('OUTPUT', 'stock_report.tex'), 'w') as f:
+    os.chdir('../OUTPUT')
+    with open('stock_report.tex', 'w') as f:
         f.write(running_tex_str)
+    os.chdir('..')
     return
 
 def get_contents(filename):
@@ -226,10 +231,13 @@ def get_contents(filename):
     Out: file_start template and the contents of the file named as argument.
          Ending in main directory.
     """
-    with open(os.path.join('CODE', 'file_start.tex'), 'r') as f:
+    os.chdir('CODE')
+    with open('file_start.tex', 'r') as f:
         running_tex_str = f.read()
-    with open(os.path.join('DATA', filename), 'r') as f:
+    os.chdir('../DATA')
+    with open(filename, 'r') as f:
         contents = f.read().split('\n')
+    os.chdir('..')
     return contents, running_tex_str
 
 def create_ticker_string(contents):
@@ -237,8 +245,10 @@ def create_ticker_string(contents):
     In: List of stock symbols
     Out: Returns the stock symbols, formatted as string of plus-sign-delimited symbols.
     """
-    tickers = '+'.join(contents)
-    # Use rstrip in case there had been an extra blank index.
+    tickers = ''
+    for item in contents:
+        item_list = item.split(r'\n')
+        tickers += item_list[0] + '+'
     return tickers.rstrip('+')
 
 def format_data(is_dict):
@@ -254,14 +264,30 @@ def format_data(is_dict):
     if is_dict['Change'] == 'N/A':
         is_dict['Percent change'] = 'N/A'
     else:
-        # float() is being used because these values are strings;
-        # the one exception, above, is 'N/A'
         as_float = (float(is_dict['Change']))*100/\
                 (float(is_dict['Last trade']) - float(is_dict['Change']))
-        is_dict['Percent change'] = '{0:.2f}\%'.format(as_float)
+        is_dict['Percent change'] = truncate(as_float, 2) + '\%'
         if is_dict['Percent change'].find('-') == -1:
             if is_dict['Percent change'] == '0\%':
                 is_dict['Percent change'] = '0'
             else:
                 is_dict['Percent change'] = '+' + is_dict['Percent change']
     return is_dict
+
+def truncate(x, places):
+    """
+    In:  x: float or int
+    Out: x formatted as string, truncated to "places" places
+    """
+    if type(x) not in [float, int]:
+        print('truncate() requires float or int as argument; {0} is of type'\
+                '{1}.\n\nExiting.\n').format(x, type(x))
+        quit()
+    elif x == 0:
+        return str(0)
+    else:
+        x = str(int(x*(10**places)))
+    return x[:-2] + '.' + x[-2:]
+
+if __name__ == '__main__':
+    main()
