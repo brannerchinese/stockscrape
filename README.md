@@ -1,7 +1,7 @@
 stockscrape
 ===========
 
-**Version**: 1.1, 20130220
+**Version**: 1.2, 20130222
 
 **Author**: David Prager Branner
 
@@ -33,12 +33,13 @@ This version scrapes the Yahoo financial news site using Beautiful Soup 4.
 
 New in this version
 -------------------
-1. Suggestions from code review mostly implemented. (See (https://github.com/brannerchinese/stockscrape/pull/1))
+1. Added code to run main() from command line.
 
 ---
 
 Past versions:
 
+ * 1.1, 20130220
  * 1.0, 20130219
  * 0.4, 20130214
  * 0.3, 20130213

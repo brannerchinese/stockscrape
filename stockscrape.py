@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# stockscrape32.py
-# 20130220, works
+# stockscrape.py
+# 20130222, works
 # Run with Python 3.2
 
 import datetime as D
@@ -265,3 +265,6 @@ def format_data(is_dict):
             else:
                 is_dict['Percent change'] = '+' + is_dict['Percent change']
     return is_dict
+
+if __name__ == '__main__':
+    main()
