@@ -51,8 +51,8 @@ def process_news(contents, running_tex_str):
     # get today's date
     today = D.date.today().strftime('%Y-%m-%d')
     for symbol in contents:
-        print('\n*******************\nNow processing {0}\n*******************'.\
-                format(symbol)) # debug-print
+#        print('\n*******************\nNow processing {0}\n*******************'.\
+#                format(symbol)) # debug-print
         headline_list = []
         # Date such as &t=2012-05-14 can be appended to URL
         url = 'http://finance.yahoo.com/q/h?s=' + symbol + '&t=' + today
@@ -106,9 +106,8 @@ def process_url(url, split_here = ''):
         # So convert to Unicode now, because what we received is bytecode
         data_list = data_list.decode().split(split_here) 
     except UE.URLError as e:
-        print('There is a URLerror\n', e, '\n and symbol =', symbol)
-        # an empty return string will simply add no length to running value
-        data_list = ''
+        print('There is a URLerror\n{0}.').format(e) 
+        quit()
     return data_list
 
 def retrieve_webpage(symbol):
@@ -121,9 +120,8 @@ def retrieve_webpage(symbol):
     try:
         data_list = UR.urlopen(url).read().strip()
     except UE.URLError as e:
-        print('There is a URLerror\n', e, '\n and symbol =', symbol)
-        # an empty return string will be trapped in "if webpage"
-        return ''
+        print('There is a URLerror\n{0}.').format(e)
+        quit()
     webpage = BS(data_list)
     return webpage
 
@@ -133,47 +131,46 @@ def process_webpage(webpage):
     Out; list of lists; each sublist contains [headline, link, source, date]
 """
     headline_list = []
-    if webpage:
-        for item in webpage.find_all('li'):
-            # Next: consider moving the processing of the four compounds out to
-            # four functions, and calling from a list. Doing this will further
-            # modularize the code.
-            try: 
-                # Headline
-                headline = item.a.text
-                headline = escape_for_latex(headline)
-                #
-                # Link
-                link = item.a.attrs['href']
-                # many URLs have Yahoo-tracking prefix, which we strip
-                link = re.sub('http.+?\*', '', link)
-                #
-                # Source, from which the date must be removed
-                source = str(item.cite).replace('\xa0'+str(item.span), '')
-                if source == 'None':
-                    continue
-                # replace <cite> and </cite> tags
-                source = re.sub('<\/?cite>', '', source)
-                # if Yahoo is supplying a link with a tracker, remove ``at ''
-                source = source.strip('at ')
-                source = escape_for_latex(source)
-                #
-                # Date
-                newsdate = item.span.text
-                # replace parens
-                newsdate = re.sub('\(|\)', '', newsdate)
-                # If no date is given (string i.e., contains 'AM' or 'PM'), 
-                #   then we supply current local date.
-                if newsdate.count('AM') or newsdate.count('PM'):
-                     newsdate = T.strftime('%a, %b %d', T.localtime())
-                #
-                # Done
-                # ggg question: are we getting more than one headline per symbol?
-    #            print('\n', headline, '\n  ', link, '\n  ', source, \
-    #                    '\n   ', newsdate) # debug-print
-                headline_list.append([headline, link, source, newsdate])
-            except Exception as e:
+    for item in webpage.find_all('li'):
+        # Next: consdier moving the processing of the four compounds out to
+        # four functions, and calling from a list. Doing this will further
+        # modularize the code.
+        try: 
+            # Headline
+            headline = item.a.text
+            headline = escape_for_latex(headline)
+            #
+            # Link
+            link = item.a.attrs['href']
+            # many URLs have Yahoo-tracking prefix, which we strip
+            link = re.sub('http.+?\*', '', link)
+            #
+            # Source, from which the date must be removed
+            source = str(item.cite).replace('\xa0'+str(item.span), '')
+            if source == 'None':
                 continue
+            # replace <cite> and </cite> tags
+            source = re.sub('<\/?cite>', '', source)
+            # if Yahoo is supplying a link with a tracker, remove ``at ''
+            source = source.strip('at ')
+            source = escape_for_latex(source)
+            #
+            # Date
+            newsdate = item.span.text
+            # replace parens
+            newsdate = re.sub('\(|\)', '', newsdate)
+            # If no date is given (string i.e., contains 'AM' or 'PM'), 
+            #   then we supply current local date.
+            if newsdate.count('AM') or newsdate.count('PM'):
+                 newsdate = T.strftime('%a, %b %d', T.localtime())
+            #
+            # Done
+            # ggg question: are we getting more than one headline per symbol?
+#            print('\n', headline, '\n  ', link, '\n  ', source, \
+#                    '\n   ', newsdate) # debug-print
+            headline_list.append([headline, link, source, newsdate])
+        except Exception as e:
+            continue
     return headline_list
 
 def lookup(tickers, list_items, stats = 'sd1l1c1dr1q'):
@@ -252,7 +249,7 @@ def format_data(is_dict):
     # Modify formatting of ticker information
     is_dict['Symbol'] = '\\head{' + is_dict['Symbol'] + '}'
     # Add percent change information
-    # Note that this will eventually be change from last lookup (stored data),
+    # Note that this will eventually be cange from last lookup (stored data),
     #   for now, calculated only based on downloaded values.
     if is_dict['Change'] == 'N/A':
         is_dict['Percent change'] = 'N/A'

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# stockscrape.py
-# 20130222, works
+# headline_length.py
+# 20130225, works
 # Run with Python 3.2
 
 import datetime as D
@@ -11,67 +11,44 @@ import re
 import os
 from bs4 import BeautifulSoup as BS
 import time as T
+import sys
 
 def main(filename='stock_list.txt'):
     """
-    Look up vital stock data and headlines on Yahoo
-    and save to new LaTeX document.
+    Find the length of the longest headline, link, and source
+    for headlines scraped from the Yahoo financial news pages.
     """
-    contents, running_tex_str = get_contents(filename)
+    contents = get_contents(filename)
     ################################
-    # 1. Stock prices
-    running_tex_str = process_tickers(contents, running_tex_str)
+    # Stock news
+    process_news(contents)
     ################################
-    # 2. Stock news
-    running_tex_str = process_news(contents, running_tex_str)
-    ################################
-    # 3. Write to output
-    write_contents(running_tex_str)
     print('\n\nFinished headlines.')
 
-def process_tickers(contents, running_tex_str):
-    """Gather stock data from Yahoo API and output as LaTeX table."""
-    list_items = ['Symbol', 'Last trade date', 'Last trade', 'Change',
-            'Dividend/share', 'Dividend pay date', 'Ex-dividend date']
-    # Create list of tickers
-    tickers = create_ticker_string(contents)
-    data = lookup(tickers, list_items)
-    list_items.insert(4, 'Percent change')
-    for row_dict in data:
-        row_dict = format_data(row_dict)
-        # create list of items to go into line of .tex table
-        line_for_table = [row_dict[item] for item in list_items]
-        running_tex_str += ' & '.join(line_for_table) + '\\\\ \hline\n'
-    running_tex_str += '\\end{tabular}\n \\end{center}\n \\end{table}%\n\\clearpage'
-    print('\nFinished prices.\n')
-    return running_tex_str
-
-def process_news(contents, running_tex_str):
+def process_news(contents):
     """Scrape news headlines."""
     # get today's date
     today = D.date.today().strftime('%Y-%m-%d')
+    # prepare lists to receive lengths of headlines, links, and sources
+    hl_lengths = []
+    link_lengths = []
+    source_lengths = []
+    # now run through each ticker
     for symbol in contents:
-        print('\n*******************\nNow processing {0}\n*******************'.\
-                format(symbol)) # debug-print
-        headline_list = []
+#        print('\n*******************\nNow processing {0}\n*******************'.\
+#                format(symbol)) # debug-print
         # Date such as &t=2012-05-14 can be appended to URL
         url = 'http://finance.yahoo.com/q/h?s=' + symbol + '&t=' + today
         # Retrieve and process webpage, yielding list of lists
         webpage = retrieve_webpage(symbol)
-        headline_list += process_webpage(webpage)
-        # Done
-        running_tex_str += '\n\n\section*{' + symbol + '}\n'
-        if headline_list:
-            running_tex_str += '\\begin{itemize}'
-            for i in headline_list:
-            # Convert headline_list into string
-                running_tex_str += '\n\item ' + i[0] + ' (' + i[2] + \
-                        ': ' + i[3] + ')'
-            running_tex_str = running_tex_str.replace('\item [', '\item\\ [')
-            running_tex_str += '\n\end{itemize}'
-        else:
-            running_tex_str += 'No news found.'
-    return running_tex_str
+#        headline_list += process_webpage(webpage)
+        hls, links, sources = process_webpage(webpage)
+        hl_lengths.extend(hls)
+        link_lengths.extend(links)
+        source_lengths.extend(sources)
+    print('longest headline:', max(hl_lengths), '\nlongest link:', \
+            max(link_lengths), '\nlongest source:', max(source_lengths))
+#    return running_tex_str
 
 def escape_for_latex(a_string):
     """Perform simple text replacements for LaTeX compatibility."""
@@ -104,7 +81,7 @@ def process_url(url, split_here = ''):
         data_list = UR.urlopen(url).read().strip()
         # As of Py3 we get error "Type str doesn't support the buffer API"
         # So convert to Unicode now, because what we received is bytecode
-        data_list = data_list.decode().split(split_here) 
+        data_list = data_list.decode().split(split_here)
     except UE.URLError as e:
         print('There is a URLerror\n', e, '\n and symbol =', symbol)
         # an empty return string will simply add no length to running value
@@ -131,14 +108,14 @@ def process_webpage(webpage):
     """
     In:  webpage formatted by BS
     Out; list of lists; each sublist contains [headline, link, source, date]
-"""
-    headline_list = []
+    """
+    # prepare count of longest items
+    hl_lengths = []
+    link_lengths = []
+    source_lengths = []
     if webpage:
         for item in webpage.find_all('li'):
-            # Next: consider moving the processing of the four compounds out to
-            # four functions, and calling from a list. Doing this will further
-            # modularize the code.
-            try: 
+            try:
                 # Headline
                 headline = item.a.text
                 headline = escape_for_latex(headline)
@@ -158,69 +135,12 @@ def process_webpage(webpage):
                 source = source.strip('at ')
                 source = escape_for_latex(source)
                 #
-                # Date
-                newsdate = item.span.text
-                # replace parens
-                newsdate = re.sub('\(|\)', '', newsdate)
-                # If no date is given (string i.e., contains 'AM' or 'PM'), 
-                #   then we supply current local date.
-                if newsdate.count('AM') or newsdate.count('PM'):
-                     newsdate = T.strftime('%a, %b %d', T.localtime())
-                #
-                # Done
-                # ggg question: are we getting more than one headline per symbol?
-    #            print('\n', headline, '\n  ', link, '\n  ', source, \
-    #                    '\n   ', newsdate) # debug-print
-                headline_list.append([headline, link, source, newsdate])
+                hl_lengths.append(len(headline))
+                link_lengths.append(len(link))
+                source_lengths.append(len(source))
             except Exception as e:
                 continue
-    return headline_list
-
-def lookup(tickers, list_items, stats = 'sd1l1c1dr1q'):
-    """
-    Look up a few vital elements in the Yahoo API, return them as a dictionary.
-    In:  Three arguments needed for accessing Yahoo API.
-    Out: Dictionary of tickers:stats.
-    """
-    # Tag information from
-    #    https://ilmusaham.wordpress.com/tag/stock-yahoo-data/
-    # 0 s:  symbol
-    # 1 d1: last trade date
-    # 2 l1: last trade
-    # 3 c:  change
-    # 4 d:  dividend/share
-    # 5 r1: dividend pay date
-    # 6 q:  ex-dividend date
-    # Note that names are handled separately; they may contain commas
-    #
-    # Prepare dictionary to be returned
-    full_data = []
-    url = 'http://finance.yahoo.com/d/quotes.csv?s={0}&f={1}'.\
-            format(tickers, stats)
-    # get Yahoo data as list of lists
-    data_list = process_url(url, '\r\n')
-    for item in data_list:
-        one_row = item.split(',')
-        # Next: build dictionary for each "item"
-        #   and append to list full_data
-        #   also, strip quotes while adding item to one_row_dict
-        one_row_dict = {list_item: row_item.strip('"')
-                for list_item, row_item in zip(list_items, one_row)}
-        full_data.append(one_row_dict)
-    return full_data
-
-def write_contents(running_tex_str):
-    """
-    In:  Argument is string of LaTeX content without end-of-document matter.
-         Starting in main directory.
-    Out: Write the contents of the argument and save together with the file_end template.
-         Output is saved to OUTPUT directory; we return in main directory.
-    """
-    with open(os.path.join('CODE', 'file_end.tex'), 'r') as f:
-        running_tex_str += f.read()
-    with open(os.path.join('OUTPUT', 'stock_report.tex'), 'w') as f:
-        f.write(running_tex_str)
-    return
+    return hl_lengths, link_lengths, source_lengths
 
 def get_contents(filename):
     """
@@ -229,11 +149,9 @@ def get_contents(filename):
     Out: file_start template and the contents of the file named as argument.
          Ending in main directory.
     """
-    with open(os.path.join('CODE', 'file_start.tex'), 'r') as f:
-        running_tex_str = f.read()
     with open(os.path.join('DATA', filename), 'r') as f:
         contents = f.read().split('\n')
-    return contents, running_tex_str
+    return contents
 
 def create_ticker_string(contents):
     """
