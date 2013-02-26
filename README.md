@@ -42,8 +42,8 @@ New in this version
 Overview of project
 -------------------
 
- * Phase 1: (**Finished**) Basic scraper and LaTeX output of API-data and scraped headlines.
- * Phase 2: Use SQL to store and manipulate data.
+ * Phase 1: `(**Finished**) Basic scraper and LaTeX output of API-data and scraped headlines.
+ * Phase 2: U`se SQL to store and manipulate data.
  * Phase 3: Use a web framework to create a GUI for easy management of the application.
 
 ---
