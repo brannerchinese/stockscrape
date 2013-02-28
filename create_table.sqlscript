@@ -1,0 +1,38 @@
+-- *****************
+-- Script to create tables for database hl.db
+-- Run as
+--     sqlite3 hl.db < create_table.sqlscript
+--
+-- *****************
+DROP TABLE IF EXISTS prices;
+DROP TABLE IF EXISTS headlines;
+DROP TABLE IF EXISTS shares;
+CREATE TABLE shares(
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    ticker VARCHAR(5) NOT NULL, 
+    owned INTEGER, 
+    UNIQUE (ticker));
+CREATE TABLE headlines(
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    idSharesFK INTEGER, 
+    ticker VARCHAR(5) NOT NULL, 
+    headline VARCHAR(255) NOT NULL, 
+    url VARCHAR(255), 
+    source VARCHAR(25), 
+    date INTEGER, 
+    lookupdate INTEGER, 
+    lastrepdate INTEGER, 
+    FOREIGN KEY(idSharesFK) REFERENCES shares(id));
+CREATE TABLE prices(
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    idSharesFK INTEGER, 
+    lookupdate INTEGER, 
+    lastrepdate INTEGER, 
+    chg_lastrep FLOAT, 
+    pc_chg_lastrep FLOAT, 
+    tradedate INTEGER, 
+    lasttrade_value FLOAT, 
+    div_per_shr FLOAT, 
+    FOREIGN KEY(idSharesFK) REFERENCES shares(id));
+SELECT * FROM sqlite_master WHERE type='table';\end{lstlisting}
+
