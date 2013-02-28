@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # headline_play.py
-# 20130228, works.
+# 20130227, works.
 # Run with Python 3.2
 
 import datetime as D
@@ -87,7 +87,7 @@ def process_news(contents, running_tex_str):
 #                        print(' ! One new headline') # debug-print
                     # Convert Yahoo's date to ISO 8601: %Y-%m-%d
                     #    Problem: we will get 1900 for the year.
-                    #    So prefix current year to date of news,
+                    #    So previx current year to date of news,
                     #    unless month of news is higher than current month
                     #    (i.e., previous year).
                     #    (Assumes no news is more than 11 monts old.)
@@ -103,6 +103,11 @@ def process_news(contents, running_tex_str):
                             isoformat()[5:10]
                     #
                     # Add it to database
+#                    cursor.execute('''INSERT INTO headlines (''' +\
+#                            '''ticker, headline, url, source) ''' +\
+#                            '''VALUES (?, ?, ?, ?);''', \
+#                            (symbol, i[0], i[1], i[2]))
+                    # eventually we will use this, with dates:
                     cursor.execute('''INSERT INTO headlines (''' +\
                             '''ticker, headline, url, source, date, ''' +\
                             '''lookupdate) VALUES (?, ?, ?, ?, ?, ?);''', \
@@ -173,7 +178,7 @@ def process_webpage(webpage):
     """
     In:  webpage formatted by BS
     Out; list of lists; each sublist contains [headline, link, source, date]
-    """
+"""
     headline_list = []
     if webpage:
         for item in webpage.find_all('li'):
@@ -197,7 +202,7 @@ def process_webpage(webpage):
                 # replace <cite> and </cite> tags
                 source = re.sub('<\/?cite>', '', source)
                 # if Yahoo is supplying a link with a tracker, remove ``at ''
-                source = re.sub('^at ', '', source)
+                source = source.strip('at ')
                 source = escape_for_latex(source)
                 #
                 # Date

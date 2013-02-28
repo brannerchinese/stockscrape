@@ -1,7 +1,7 @@
 stockscrape
 ===========
 
-**Version**: 1.4, 20130227
+**Version**: 1.41, 20130228
 
 **Author**: David Prager Branner
 
@@ -42,14 +42,14 @@ Scripts for use with `headline_play.py` (to be run in the following order):
  1. `create_table.sqlscript`: Creates the three tables currently in the database.
  1. `insert_all_tickers.sqlscript`: Populates the database with stock and fund tickers.
 
- Instructions for running these scripts are found in their headers.
+Instructions for running these scripts are found in their headers.
 
- Note that before running `headline_play.py`, it is best to run `sqlite3` and empty the `headlines` table, otherwise the LaTeX output will not populate correctly. Use the following two commands at the `sqlite3` prompt:
+Note that before running `headline_play.py`, it is best to run `sqlite3` and empty the `headlines` table, otherwise the LaTeX output will not populate correctly. Use the following two commands at the `sqlite3` prompt:
 
- `DELETE FROM headlines;
+`DELETE FROM headlines;
 SELECT ticker,headline FROM headlines;`
 
- This will ensure that the table is empty.
+This will ensure that the table is empty.
 
 Notes
 =====
@@ -60,8 +60,7 @@ This version scrapes the Yahoo financial news site using Beautiful Soup 4.
 
 New in this version
 -------------------
-1. Code now populates an SQLite database with headlines and their urls, sources, and dates. Redundant headlines are suppressed.
-1. Code adds the appropriate year to the date of the headeline: this year or last.
+1. Fixed bug that mistakenly stripped some characters from news source.
 
 Overview of project
 -------------------
@@ -74,6 +73,7 @@ Overview of project
 
 Past versions:
 
+ * 1.4, 20130227
  * 1.3, 20130225
  * 1.2, 20130222
  * 1.1, 20130220
