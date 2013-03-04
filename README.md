@@ -1,7 +1,7 @@
 stockscrape
 ===========
 
-**Version**: 1.41, 20130228
+**Version**: 1.42, 20130304
 
 **Author**: David Prager Branner
 
@@ -17,11 +17,11 @@ Principal Contents
 Python Programs
 ---------------
 
-1. `stockscrape.py`: Version for Python 3.2 only. This is the principal scraping program.
+1. `headline_to_db.py`: **Newly revised with this version**. Preliminary version of `stockscrape.py` modified to save unique headlines and associated information to a SQLite database. There will be a separate `db_to_latex.py` program to produce LaTeX output from the database, but it has not been implemented yet.
 
-1. `headline_length.py`: Trimmed version for determining the longest attested headline, link, and news-source, in preparation for creating database fields. Default list of stock tickers is the same as for `stockscrape.py`; several others are found in `DATA/`.
+1. `stockscrape.py`: Version for Python 3.2 only. This is the principal scraping program. It has not been updated since v. 1.2.
 
-1. `headline_play.py`: Preliminary version of `stockscrape.py` modified to save unique headlines and associated information to a SQLite database.
+1. `headline_length.py`: Trimmed version of `stockscrape.py` for determining the longest attested headline, link, and news-source, in preparation for creating database fields. Default list of stock tickers is the same as for `stockscrape.py`; several others are found in `DATA/`. 
 
 Directories
 -----------
@@ -37,14 +37,14 @@ Directories
 Scripts
 -------
 
-Scripts for use with `headline_play.py` (to be run in the following order):
+Scripts for use with `headline_to_db.py` (to be run in the following order):
 
  1. `create_table.sqlscript`: Creates the three tables currently in the database.
  1. `insert_all_tickers.sqlscript`: Populates the database with stock and fund tickers.
 
 Instructions for running these scripts are found in their headers.
 
-Note that before running `headline_play.py`, it is best to run `sqlite3` and empty the `headlines` table, otherwise the LaTeX output will not populate correctly. Use the following two commands at the `sqlite3` prompt:
+Note that before running `headline_to_db.py`, it is best to run `sqlite3` and empty the `headlines` table, otherwise the LaTeX output will not populate correctly. Use the following two commands at the `sqlite3` prompt:
 
 `DELETE FROM headlines;
 SELECT ticker,headline FROM headlines;`
@@ -60,7 +60,7 @@ This version scrapes the Yahoo financial news site using Beautiful Soup 4.
 
 New in this version
 -------------------
-1. Fixed bug that mistakenly stripped some characters from news source.
+1. Divided original `headline_play.py` program into `headline_to_db.py` and `db_to_latex.py`, separating scraping to database from producing output. All LaTeX formatting is now removed from `headline_to_db.py`.
 
 Overview of project
 -------------------
@@ -73,6 +73,7 @@ Overview of project
 
 Past versions:
 
+ * 1.41, 20130228
  * 1.4, 20130227
  * 1.3, 20130225
  * 1.2, 20130222

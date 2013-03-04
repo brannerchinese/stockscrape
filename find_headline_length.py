@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# headline_length.py
+# find_headline_length.py
 # 20130225, works
 # Run with Python 3.2
 
