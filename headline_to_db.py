@@ -104,6 +104,7 @@ class StockScraper():
             cursor = cursor.execute('''SELECT ticker,headline FROM headlines''')
             current_db = cursor.fetchall()
             new_headline_count = 0
+            old_headline_count = 0
             for symbol in self.api_results:
                 print('\nNow processing {0}: '.format(symbol), end='')
                 # Date such as &t=2012-05-14 can be appended to URL
@@ -119,6 +120,7 @@ class StockScraper():
                     #   but later consider catch exception on INSERT
                     #       (must make them UNIQUE in db)
                     if (symbol, headline) in current_db:
+                        old_headline_count += 1
                         self.debug_print(' found:', symbol, newsdate, headline)
                         continue
                     else:
@@ -150,15 +152,16 @@ class StockScraper():
                     #
                     # Add it to database
                     new_headline_count += 1
-                    cursor.execute('''INSERT INTO headlines (''' +
-                            '''ticker, headline, url, source, date, ''' +
-                            '''lookupdate) VALUES (?, ?, ?, ?, ?, ?);''',
+                    cursor.execute('''INSERT INTO headlines (
+                            ticker, headline, url, source, date, 
+                            lookupdate) VALUES (?, ?, ?, ?, ?, ?);''',
                             (symbol, headline, link, source, news_date_str,
                                 today))
                     print('.', end='')
                     if news_date == today:
                         print('  news date:', news_date, i)
-            print('\n\n{} new headlines added.'.format(new_headline_count))
+            print('\n\n{0} new headlines added; {1} old headlines found.'.
+                    format(new_headline_count, old_headline_count))
 
     def process_url(self, url, split_here = ''):
         """
