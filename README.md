@@ -1,7 +1,7 @@
 stockscrape
 ===========
 
-**Version**: 1.42, 20130304
+**Version**: 1.5, 20130313
 
 **Author**: David Prager Branner
 
@@ -17,9 +17,11 @@ Principal Contents
 Python Programs
 ---------------
 
+All code is tested with Python v. 3.2 only.
+
 1. `headline_to_db.py`: **Newly revised with this version**. Preliminary version of `stockscrape.py` modified to save unique headlines and associated information to a SQLite database. There will be a separate `db_to_latex.py` program to produce LaTeX output from the database, but it has not been implemented yet.
 
-1. `stockscrape.py`: Version for Python 3.2 only. This is the principal scraping program. It has not been updated since v. 1.2.
+1. `stockscrape.py`: This is the principal scraping program. It has not been updated since v. 1.2.
 
 1. `headline_length.py`: Trimmed version of `stockscrape.py` for determining the longest attested headline, link, and news-source, in preparation for creating database fields. Default list of stock tickers is the same as for `stockscrape.py`; several others are found in `DATA/`. 
 
@@ -31,8 +33,6 @@ Directories
 `CODE/`: contains `.tex` templates for beginning and end of output file.
 
 `DATA/`: contains `.txt` file of stock tickers to be looked up, one per line.
-
-`PREVIOUS_VERSIONS/`: previous versions will be stored here with date appended, but they may not run as is because directory structures have changed. See past commits of the repository for complete working installations of these older versions.
 
 Scripts
 -------
@@ -60,7 +60,9 @@ This version scrapes the Yahoo financial news site using Beautiful Soup 4.
 
 New in this version
 -------------------
-1. Divided original `headline_play.py` program into `headline_to_db.py` and `db_to_latex.py`, separating scraping to database from producing output. All LaTeX formatting is now removed from `headline_to_db.py`.
+1. Converted to class structure.
+1. Enabled `-v` flag for verbose output, if run from commend line.
+1. Numerous small changes.
 
 Overview of project
 -------------------
@@ -73,6 +75,7 @@ Overview of project
 
 Past versions:
 
+ * 1.42, 20130304
  * 1.41, 20130228
  * 1.4, 20130227
  * 1.3, 20130225

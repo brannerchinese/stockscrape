@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # db_to_latex.py
-# 20130304
+# 20130307
 # Run with Python 3.2
 
 import datetime as D
@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup as BS
 import time as T
 import sqlite3 as SQ
 
-def main(filename='stock_list.txt'):
+def main(filename='stock_list.txt', days_of_history = 7):
     """
     Look up vital stock data and headlines on Yahoo
     and store to database.
@@ -21,10 +21,11 @@ def main(filename='stock_list.txt'):
     contents, running_tex_str = get_contents(filename)
     ################################
     # 1. Stock prices
+    # ggg leave this alone for now
     running_tex_str = process_tickers(contents, running_tex_str)
     ################################
     # 2. Stock news
-    running_tex_str = process_news(contents, running_tex_str)
+    running_tex_str = process_news(contents, running_tex_str, days_of_history)
     ################################
     # 3. Write to output
     write_contents(running_tex_str)
@@ -32,6 +33,7 @@ def main(filename='stock_list.txt'):
 
 def process_tickers(contents, running_tex_str):
     """Gather stock data from Yahoo API and output as LaTeX table."""
+    # ggg leave this function alone for now.
     list_items = ['Symbol', 'Last trade date', 'Last trade', 'Change',
             'Dividend/share', 'Dividend pay date', 'Ex-dividend date']
     # Create list of tickers
@@ -43,72 +45,92 @@ def process_tickers(contents, running_tex_str):
         # create list of items to go into line of .tex table
         line_for_table = [row_dict[item] for item in list_items]
         running_tex_str += ' & '.join(line_for_table) + '\\\\ \hline\n'
-    running_tex_str += '\\end{tabular}\n \\end{center}\n \\end{table}%\n\\clearpage'
+    running_tex_str += \
+            '\\end{tabular}\n \\end{center}\n \\end{table}%\n\\clearpage'
     print('\nFinished prices.\n')
     return running_tex_str
 
-def process_news(contents, running_tex_str):
+def process_news(contents, running_tex_str, days_of_history):
     """Scrape news headlines and store to database."""
-    # Get today's date in ISO 8601
-    today = D.date.today().strftime('%Y-%m-%d')
+    # Get today's date as date object
+    today = D.date.today()
     # Note that SQLite generates ISO 8601 with `SELECT date('now');`
     #     and these strings can be compared arithmetically, w correct results.
     #
     # Use "with" to keep db file clean
     with SQ.connect('hl.db') as connection:
         cursor = connection.cursor()
-        # We need a copy of the existing db to prevent reduncant insertions
-        cursor = cursor.execute('''SELECT ticker,headline FROM headlines''')
-        current_db = cursor.fetchall()
         for symbol in contents:
             print('\n**************\nNow processing {0}\n**************'.\
                     format(symbol)) # debug-print
-            headline_list = []
-            # Date such as &t=2012-05-14 can be appended to URL
-            url = 'http://finance.yahoo.com/q/h?s=' + symbol + '&t=' + today
-            # Retrieve and process webpage, yielding list of lists
-            webpage = retrieve_webpage(symbol)
-            headline_list += process_webpage(webpage)
-            # Begin formatting for LaTeX
+            # First check for no news at all.
+            cursor = cursor.execute('''SELECT headline FROM headlines '''
+                    '''WHERE ticker=?''', (symbol, ))
+            if not cursor.fetchall():
+                running_tex_str += '\n\n\section*{' + symbol +\
+                        ' --- No news found.}\n'
+                print('   No news found.') # debug-print
+                continue
+            # If we are here, there is some news so create section heading.
             running_tex_str += '\n\n\section*{' + symbol + '}\n'
-            if headline_list:
-                running_tex_str += '\\begin{itemize}'
-                for i in headline_list:
-                    # Make sure nothing redundant is added;
-                    #    for now check if symbol and headline already present
-                    #    but later consider catch exception on INSERT
-                    #        (must make them UNIQUE in db)
-                    if (symbol, i[0]) in current_db:
-                        continue
-                    # Convert Yahoo's date to ISO 8601: %Y-%m-%d
-                    #    Problem: we will get 1900 for the year.
-                    #    So prefix current year to date of news,
-                    #    unless month of news is higher than current month
-                    #    (i.e., previous year).
-                    #    (Assumes no news is more than 11 monts old.)
-                    today_month = int(D.date.today().strftime('%m'))
-                    news_month = int(D.datetime.strptime(i[3], '%a, %b %d').\
-                            isoformat()[5:7])
-                    if today_month < news_month:
-                        news_year = str(int(D.date.today().strftime('%Y'))-1)
-                    else:
-                        news_year = int(D.date.today().strftime('%Y'))
-                    i[3] = str(news_year) + '-' + \
-                            D.datetime.strptime(i[3], '%a, %b %d').\
-                            isoformat()[5:10]
-                    #
-                    # Add it to database
-                    cursor.execute('''INSERT INTO headlines (''' +\
-                            '''ticker, headline, url, source, date, ''' +\
-                            '''lookupdate) VALUES (?, ?, ?, ?, ?, ?);''', \
-                            (symbol, i[0], i[1], i[2], i[3], today))
-                    # Convert headline_list into string for .tex file
-                    running_tex_str += '\n\item\\ ' + i[0] + ' (' + i[2] + \
-                            ': ' + i[3] + ')'
-                running_tex_str += '\n\end{itemize}'
-            else:
-                running_tex_str += 'No news found.'
+            # Now retrieve news for each date within range back in time.
+            #   Set sentinel for no news found.
+            no_news = True
+            for days_back in range(0, days_of_history):
+                the_date = today - D.timedelta(days_back)
+                print('  date:', the_date) #debug-print
+                cursor = cursor.execute('''SELECT headline, source, date '''
+                        '''FROM headlines WHERE ticker=? '''
+                        '''AND date=? ''', (symbol, the_date))
+                # Note that fetchall() returns a list of tuples
+                # If there is news for this date, then send to separate
+                #     function for processing and turn off no-news sentinel.
+                tuple_list = cursor.fetchall()
+                print(' length of tuple_list', len(tuple_list))
+                if tuple_list:
+                    no_news = False
+                    print('   sentinel unset for', symbol)
+                    running_tex_str = \
+                            append_dated_hl_to_tex(symbol, the_date, \
+                            tuple_list, running_tex_str)
+            if no_news:
+                print('\n   sentintel remains SET for', symbol)
+                print('\n', running_tex_str[-30:])
+                running_tex_str = re.sub('{' + symbol + '}$',\
+                        '{' + symbol + ' --- No news since ' +\
+                        the_date.strftime('%A, %B %d, %Y') + '.}',\
+                        running_tex_str)
+                print('\n', running_tex_str[-50:])
     return running_tex_str
+
+def append_dated_hl_to_tex(symbol, the_date, tuple_list, running_tex_str):
+    """
+    In:  symbol (=ticker string), 
+         the_date (single date for the headlines in tuple_list), 
+         tuple_list: non-empty list of tuples, 
+             each tuple containing hl, source, date; 
+         running_tex_str contains LaTeX preamble and section header for symbol
+             and also any subsection headers for headlines with later dates.
+    Out: running_tex_str now has \subsection for this date.
+    """
+    # Begin formatting for LaTeX, for this symbol
+    running_tex_str += '\n\subsection*{' +\
+            the_date.strftime('%A, %B %d, %Y')    + '}\n'
+    # Start itemized list of headlines in LaTeX file
+    running_tex_str += '\\begin{itemize}'
+    for i in tuple_list:
+        # Convert headline_list into string for .tex file
+        running_tex_str += '\n\item\\ ' + escape_for_latex(i[0]) + ' (' + \
+                escape_for_latex(i[1]) + ')'
+    running_tex_str += '\n\end{itemize}'
+    return running_tex_str
+
+def make_date_obj(date):
+    """
+    In:  date string in ISO 8601 format.
+    Out: Python datetime.date object comprising integers (year, month, day)
+    """
+    return D.date(int(date[0:4]), int(date[5:7]), int(date[8:]))
 
 def escape_for_latex(a_string):
     """Perform simple text replacements for LaTeX compatibility."""
@@ -130,88 +152,6 @@ def escape_for_latex(a_string):
     for key in the_dict:
         a_string = a_string.replace(key, the_dict.get(key))
     return a_string
-
-def process_url(url, split_here = ''):
-    """
-    In:  url and optional to-split-at string (arguments)
-    Out: returns list of discrete paragraph-contents, cast to UTF-8;
-         if  URL error, quit.
-    """
-    try:
-        data_list = UR.urlopen(url).read().strip()
-        # As of Py3 we get error "Type str doesn't support the buffer API"
-        # So convert to Unicode now, because what we received is bytecode
-        data_list = data_list.decode().split(split_here)
-    except UE.URLError as e:
-        print('There is a URLerror\n', e, '\n and symbol =', symbol)
-        # an empty return string will simply add no length to running value
-        data_list = ''
-    return data_list
-
-def retrieve_webpage(symbol):
-    """
-    In:  symbol (argument)
-    Out: BS object, webpage
-    """
-    today = D.date.today().strftime('\%Y-\%m-\%d')
-    url = 'http://finance.yahoo.com/q/h?s=' + symbol + '&t=' + today
-    try:
-        data_list = UR.urlopen(url).read().strip()
-    except UE.URLError as e:
-        print('There is a URLerror\n', e, '\n and symbol =', symbol)
-        # an empty return string will be trapped in "if webpage"
-        return ''
-    webpage = BS(data_list)
-    return webpage
-
-def process_webpage(webpage):
-    """
-    In:  webpage formatted by BS
-    Out; list of lists; each sublist contains [headline, link, source, date]
-    """
-    headline_list = []
-    if webpage:
-        for item in webpage.find_all('li'):
-            # Next: consider moving the processing of the four compounds out to
-            # four functions, and calling from a list. Doing this will further
-            # modularize the code.
-            try:
-                # Headline
-                headline = item.a.text
-                headline = escape_for_latex(headline)
-                #
-                # Link
-                link = item.a.attrs['href']
-                # many URLs have Yahoo-tracking prefix, which we strip
-                link = re.sub('http.+?\*', '', link)
-                #
-                # Source, from which the date must be removed
-                source = str(item.cite).replace('\xa0'+str(item.span), '')
-                if source == 'None':
-                    continue
-                # replace <cite> and </cite> tags
-                source = re.sub('<\/?cite>', '', source)
-                # if Yahoo is supplying a link with a tracker, remove ``at ''
-                source = re.sub('^at ', '', source)
-                source = escape_for_latex(source)
-                #
-                # Date
-                newsdate = item.span.text
-                # replace parens
-                newsdate = re.sub('\(|\)', '', newsdate)
-                # If no date is given (string i.e., contains 'AM' or 'PM'),
-                #   then we supply current local date.
-                if newsdate.count('AM') or newsdate.count('PM'):
-                     newsdate = T.strftime('%a, %b %d', T.localtime())
-                #
-                # Done
-                # ggg question: are we getting more than one headline per symbol?
-    #            print('\n', headline, '\n  ', link, '\n  ', source, \
-    #                    '\n   ', newsdate) # debug-print
-                headline_list.append([headline, link, source, newsdate])
-            except Exception as e:
-                continue
-    return headline_list
 
 def lookup(tickers, list_items, stats = 'sd1l1c1dr1q'):
     """
@@ -246,12 +186,29 @@ def lookup(tickers, list_items, stats = 'sd1l1c1dr1q'):
         full_data.append(one_row_dict)
     return full_data
 
+def process_url(url, split_here = ''):
+    """
+    In:  url and optional to-split-at string (arguments)
+    Out: returns list of discrete paragraph-contents, cast to UTF-8;
+         if  URL error, quit.
+    """
+    try:
+        data_list = UR.urlopen(url).read().strip()
+        # As of Py3 we get error "Type str doesn't support the buffer API"
+        # So convert to Unicode now, because what we received is bytecode
+        data_list = data_list.decode().split(split_here)
+    except UE.URLError as e:
+        print('There is a URLerror\n', e, '\n and symbol =', symbol)
+        # an empty return string will simply add no length to running value
+        data_list = ''
+    return data_list
+
 def write_contents(running_tex_str):
     """
     In:  Argument is string of LaTeX content without end-of-document matter.
-         Starting in main directory.
-    Out: Write the contents of the argument and save together with the file_end template.
-         Output is saved to OUTPUT directory; we return in main directory.
+    Out: Write the contents of the argument 
+             and save together with the file_end template.
+         Output is saved to OUTPUT directory.
     """
     with open(os.path.join('CODE', 'file_end.tex'), 'r') as f:
         running_tex_str += f.read()
@@ -262,9 +219,7 @@ def write_contents(running_tex_str):
 def get_contents(filename):
     """
     In:  filename
-         Starting in main directory.
     Out: file_start template and the contents of the file named as argument.
-         Ending in main directory.
     """
     with open(os.path.join('CODE', 'file_start.tex'), 'r') as f:
         running_tex_str = f.read()
