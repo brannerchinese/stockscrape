@@ -103,60 +103,62 @@ class StockScraper():
             # We need a copy of the existing db to prevent reduncant insertions
             cursor = cursor.execute('''SELECT ticker,headline FROM headlines''')
             current_db = cursor.fetchall()
+            new_headline_count = 0
             for symbol in self.api_results:
                 print('\nNow processing {0}: '.format(symbol), end='')
-                headline_list = []
                 # Date such as &t=2012-05-14 can be appended to URL
                 url = ('http://finance.yahoo.com/q/h?s=' + symbol + '&t=' +
                         today.isoformat())
                 # Retrieve and process webpage, yielding list of lists
                 webpage = self.retrieve_webpage(symbol)
-                headline_list += self.process_webpage(webpage)
+                headline_list = self.process_webpage(webpage)
                 self.debug_print('length of headline_list:', len(headline_list))
-                if headline_list:
-                    for i in headline_list:
-                        # Make sure nothing redundant is added;
-                        #   for now check if symbol and headline already present
-                        #   but later consider catch exception on INSERT
-                        #       (must make them UNIQUE in db)
-                        if (symbol, i[0]) in current_db:
-                            self.debug_print(' found:', symbol, i[3], i[0])
-                            continue
-                        else:
-                            self.debug_print(' added:', symbol, i[3], i[0])
-                        # Problem: Yahoo's dates in headlines have no year;
-                        #    if we convert, we will get 1900 for the year.
-                        #    So prefix current year to date of news,
-                        #    unless month of news is higher than current month
-                        #    (i.e., previous year).
-                        #    (Assumes no news is more than 11 months old;
-                        #    untrue for ARTIX, for example, which had
-                        #    February 29, 2012 when accessed on 20130306,
-                        #    causing a Python error.)
-                        try:
-                            news_date = datetime.datetime.strptime(i[3],
-                                    '%a, %b %d')
-                        except:
-                            print('  Date exception for', symbol)
-                            continue
-                        if today.month < news_date.month:
-                            news_year = today.year - 1
-                        else:
-                            news_year = today.year
-                        news_date = datetime.datetime(news_year,
-                                news_date.month,
-                                news_date.day)
-                        news_date_str = datetime.datetime.strftime(news_date,
-                                '%Y-%m-%d')
-                        #
-                        # Add it to database
-                        cursor.execute('''INSERT INTO headlines (''' +
-                                '''ticker, headline, url, source, date, ''' +
-                                '''lookupdate) VALUES (?, ?, ?, ?, ?, ?);''',
-                                (symbol, i[0], i[1], i[2], news_date_str, today))
-                        print('.', end='')
-                        if news_date == today:
-                            print('  news date:', news_date, i)
+                for headline, link, source, newsdate in headline_list:
+                    # Make sure nothing redundant is added;
+                    #   for now check if symbol and headline already present
+                    #   but later consider catch exception on INSERT
+                    #       (must make them UNIQUE in db)
+                    if (symbol, headline) in current_db:
+                        self.debug_print(' found:', symbol, newsdate, headline)
+                        continue
+                    else:
+                        self.debug_print(' added:', symbol, newsdate, headline)
+                    # Problem: Yahoo's dates in headlines have no year;
+                    #    if we convert, we will get 1900 for the year.
+                    #    So prefix current year to date of news,
+                    #    unless month of news is higher than current month
+                    #    (i.e., previous year).
+                    #    (Assumes no news is more than 11 months old;
+                    #    untrue for ARTIX, for example, which had
+                    #    February 29, 2012 when accessed on 20130306,
+                    #    causing a Python error.)
+                    try:
+                        news_date = datetime.datetime.strptime(newsdate,
+                                '%a, %b %d')
+                    except:
+                        print('  Date exception for', symbol)
+                        continue
+                    if today.month < news_date.month:
+                        news_year = today.year - 1
+                    else:
+                        news_year = today.year
+                    news_date = datetime.datetime(news_year,
+                            news_date.month,
+                            news_date.day)
+                    news_date_str = datetime.datetime.strftime(news_date,
+                            '%Y-%m-%d')
+                    #
+                    # Add it to database
+                    new_headline_count += 1
+                    cursor.execute('''INSERT INTO headlines (''' +
+                            '''ticker, headline, url, source, date, ''' +
+                            '''lookupdate) VALUES (?, ?, ?, ?, ?, ?);''',
+                            (symbol, headline, link, source, news_date_str,
+                                today))
+                    print('.', end='')
+                    if news_date == today:
+                        print('  news date:', news_date, i)
+            print('\n\n{} new headlines added.'.format(new_headline_count))
 
     def process_url(self, url, split_here = ''):
         """
@@ -198,9 +200,6 @@ class StockScraper():
         headline_list = []
         if webpage:
             for item in webpage.find_all('li'):
-                # Next: consider moving the processing of the four compounds out to
-                # four functions, and calling from a list. Doing this will further
-                # modularize the code.
                 try:
                     # Headline
                     headline = item.a.text
@@ -242,7 +241,7 @@ class StockScraper():
         Out: list of dictionaries, each representing the stats for a
                 particular ticker.
         """
-        stats_wanted = [item for item in self.tag_names 
+        stats_wanted = [item for item in self.tag_names
                 if item in self.tags_to_stats]
         stats = ''.join(self.tags_to_stats[item] for item in stats_wanted)
         # Report on missing items
