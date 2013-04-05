@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # headline_to_db.py
-# 20130313, works
+# 20130405, works
 # Run with Python 3
 
 import datetime

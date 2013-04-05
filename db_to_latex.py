@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # db_to_latex.py
-# 20130317, works
+# 20130405, works
 # Run with Python 3.2
 
 import datetime as D

@@ -1,7 +1,7 @@
 stockscrape
 ===========
 
-**Version**: 1.5, 20130313
+**Version**: 2.0, 20130405
 
 **Author**: David Prager Branner
 
@@ -62,7 +62,9 @@ New in this version
 -------------------
 1. Converted to class structure.
 1. Enabled `-v` flag for verbose output, if run from commend line.
-1. Numerous small changes.
+1. Headlines now have clickable URLs attached to them.
+1. Output to STDOUT and PDF both somewhat compressed now.
+1. Numerous other small changes.
 
 Overview of project
 -------------------
@@ -75,6 +77,7 @@ Overview of project
 
 Past versions:
 
+ * 1.5, 20130313
  * 1.42, 20130304
  * 1.41, 20130228
  * 1.4, 20130227
