@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # db_to_latex.py
-# 20130307
+# 20130317, works
 # Run with Python 3.2
 
 import datetime as D
@@ -23,7 +23,7 @@ def main(filename='stock_list.txt', days_of_history = 7):
     # 1. Stock prices
     # ggg leave this alone for now
     running_tex_str = process_tickers(contents, running_tex_str)
-    ################################
+    ###############################
     # 2. Stock news
     running_tex_str = process_news(contents, running_tex_str, days_of_history)
     ################################
@@ -61,8 +61,8 @@ def process_news(contents, running_tex_str, days_of_history):
     with SQ.connect('hl.db') as connection:
         cursor = connection.cursor()
         for symbol in contents:
-            print('\n**************\nNow processing {0}\n**************'.\
-                    format(symbol)) # debug-print
+            print('\n\nNow processing {0}: '.format(symbol), 
+                    end='') # debug-print
             # First check for no news at all.
             cursor = cursor.execute('''SELECT headline FROM headlines '''
                     '''WHERE ticker=?''', (symbol, ))
@@ -76,31 +76,33 @@ def process_news(contents, running_tex_str, days_of_history):
             # Now retrieve news for each date within range back in time.
             #   Set sentinel for no news found.
             no_news = True
+            print('dates: ', end='') # debug-print
             for days_back in range(0, days_of_history):
                 the_date = today - D.timedelta(days_back)
-                print('  date:', the_date) #debug-print
-                cursor = cursor.execute('''SELECT headline, source, date '''
-                        '''FROM headlines WHERE ticker=? '''
-                        '''AND date=? ''', (symbol, the_date))
+                print(the_date, end='') # debug-print
+                cursor = cursor.execute('''SELECT headline, source, date, url 
+                        FROM headlines WHERE ticker=? 
+                        AND date=? ''', (symbol, the_date))
                 # Note that fetchall() returns a list of tuples
                 # If there is news for this date, then send to separate
                 #     function for processing and turn off no-news sentinel.
                 tuple_list = cursor.fetchall()
-                print(' length of tuple_list', len(tuple_list))
+                print(' ({}) '.format(len(tuple_list)), end='')
                 if tuple_list:
                     no_news = False
-                    print('   sentinel unset for', symbol)
+#                    print('   sentinel unset for', symbol)
                     running_tex_str = \
                             append_dated_hl_to_tex(symbol, the_date, \
                             tuple_list, running_tex_str)
             if no_news:
-                print('\n   sentintel remains SET for', symbol)
-                print('\n', running_tex_str[-30:])
+#                print('\n   sentintel remains SET for', symbol)
+#                print('\n', running_tex_str[-30:])
+                print('\n    No news at all.', end='')
                 running_tex_str = re.sub('{' + symbol + '}$',\
                         '{' + symbol + ' --- No news since ' +\
                         the_date.strftime('%A, %B %d, %Y') + '.}',\
                         running_tex_str)
-                print('\n', running_tex_str[-50:])
+#                print('\n', running_tex_str[-50:])
     return running_tex_str
 
 def append_dated_hl_to_tex(symbol, the_date, tuple_list, running_tex_str):
@@ -120,8 +122,9 @@ def append_dated_hl_to_tex(symbol, the_date, tuple_list, running_tex_str):
     running_tex_str += '\\begin{itemize}'
     for i in tuple_list:
         # Convert headline_list into string for .tex file
-        running_tex_str += '\n\item\\ ' + escape_for_latex(i[0]) + ' (' + \
-                escape_for_latex(i[1]) + ')'
+        running_tex_str += ('\n\item\\ \\href{' + i[3] + '}{' + 
+                escape_for_latex(i[0]) + '} (' + 
+                escape_for_latex(i[1]) + ')')
     running_tex_str += '\n\end{itemize}'
     return running_tex_str
 

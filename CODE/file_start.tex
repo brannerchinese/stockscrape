@@ -1,7 +1,7 @@
 %!TEX TS-program = xelatex
 %!TEX encoding = UTF-8 Unicode
 
-% THIS TEMPLATE IS DATED 20111117
+% THIS TEMPLATE IS DATED 20130327
 
 \documentclass[11pt,asymmetric]{article}
 \usepackage[tmargin=1in, bmargin=1in, lmargin=0.5in, rmargin=0.5in]{geometry}
@@ -21,7 +21,11 @@
 \usepackage[hang,flushmargin]{footmisc}	% makes footnotes flush with margin, etc.
 \usepackage{setspace}			% control of line spacing
 \usepackage[normalem]{ulem}		% underlining (with ``normal emphasis'' retained)
-\usepackage{longtable}		% allows breaking of tables across pages with \begin{longtable}
+\usepackage{longtable}			% allows breaking of tables across pages with \begin{longtable}
+
+\usepackage[compact]{titlesec}		% compact section headings
+\titlespacing{\section}{0pt}{*0}{0pt}
+\titlespacing{\subsection}{0pt}{*0}{0pt}
 
 \newcommand\head[1]{\textbf{\textsf{#1}}}
 
@@ -36,6 +40,7 @@
 \fancyfoot[C]{\thepage}
 \headheight14.5pt		% this value chosen in response to warning messages
 
+\usepackage{hyperref}	% allows links to be placed in text
 
 \frenchspacing
 \raggedright
