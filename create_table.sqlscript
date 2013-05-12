@@ -34,5 +34,5 @@ CREATE TABLE prices(
     lasttrade_value FLOAT, 
     div_per_shr FLOAT, 
     FOREIGN KEY(idSharesFK) REFERENCES shares(id));
-SELECT * FROM sqlite_master WHERE type='table';\end{lstlisting}
+SELECT * FROM sqlite_master WHERE type='table';
 
