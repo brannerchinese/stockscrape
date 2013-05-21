@@ -7,7 +7,7 @@
 
 ## Goal
 
-To explore web scraping using the headline news service on (http://finance.yahoo.com).
+To explore web scraping using the headline news service on http://finance.yahoo.com.
 
 ## Principal Contents
 
