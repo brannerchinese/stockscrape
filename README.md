@@ -1,21 +1,17 @@
-stockscrape
-===========
+## stockscrape
 
 **Version**: 2.0, 20130405
 
 **Author**: David Prager Branner
 
 
-Goal
-====
+## Goal
 
-To explore web scraping using the headline news service on (finance.yahoo.com).
+To explore web scraping using the headline news service on (http://finance.yahoo.com).
 
-Principal Contents
-==================
+## Principal Contents
 
-Python Programs
----------------
+### Python Programs
 
 All code is tested with Python v. 3.2 only.
 
@@ -25,8 +21,7 @@ All code is tested with Python v. 3.2 only.
 
 1. `headline_length.py`: Trimmed version of `stockscrape.py` for determining the longest attested headline, link, and news-source, in preparation for creating database fields. Default list of stock tickers is the same as for `stockscrape.py`; several others are found in `DATA/`. 
 
-Directories
------------
+### Directories
 
 `OUTPUT/`: where output file, `stock_report.tex` is saved. Note that this file needs to be compiled with LaTeX in order to be usable. The LaTeX output file `stock_report.pdf` will normally be found here as well.
 
@@ -34,8 +29,7 @@ Directories
 
 `DATA/`: contains `.txt` file of stock tickers to be looked up, one per line.
 
-Scripts
--------
+### Scripts
 
 Scripts for use with `headline_to_db.py` (to be run in the following order):
 
@@ -51,23 +45,21 @@ SELECT ticker,headline FROM headlines;`
 
 This will ensure that the table is empty.
 
-Notes
-=====
+## Notes
 
 Output of `stockscrape.py` contains first a table of stock prices and related data, from the Yahoo API, followed by a list of recent headlines for each stock ticker. The output is a `.tex` file, while must be compiled to produce human-readlable output. The LaTeX package `longtable` is used, to allow breaking of tables across pages if they exceed the amount of available space on the first page.
 
 This version scrapes the Yahoo financial news site using Beautiful Soup 4. 
 
-New in this version
--------------------
+### New in this version
+
 1. Converted to class structure.
 1. Enabled `-v` flag for verbose output, if run from commend line.
 1. Headlines now have clickable URLs attached to them.
 1. Output to STDOUT and PDF both somewhat compressed now.
 1. Numerous other small changes.
 
-Overview of project
--------------------
+### Overview of project
 
  * Phase 1: ( **Finished**) Basic scraper and LaTeX output of API-data and scraped headlines.
  * Phase 2: Now underway: Use SQL to store and manipulate data.
