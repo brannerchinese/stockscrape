@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # headline_to_db.py
-# 20130405, works
+# 20140613, works
 # Run with Python 3
+
+"""Look up vital stock data and headlines on Yahoo; store to database."""
 
 import datetime
 import urllib.request
@@ -77,8 +79,9 @@ class StockScraper():
         In:  filename
         Out: the contents of the file named as argument.
         """
-        with open(os.path.join('DATA', self.filename), 'r') as f:
+        with open(os.path.join('data', self.filename), 'r') as f:
             self.api_results = f.read().split('\n')
+        self.api_results = [i for i in self.api_results if i]
         return self.api_results
 
     def create_ticker_string(self, limit):

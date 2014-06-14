@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # db_to_latex.py
-# 20130405, works
-# Run with Python 3.2
+# 20140613, works
+# Run with Python
+
+"""Look up vital stock data and headlines in database; format in LaTeX."""
 
 import datetime as D
 import urllib.request as UR
@@ -211,11 +213,11 @@ def write_contents(running_tex_str):
     In:  Argument is string of LaTeX content without end-of-document matter.
     Out: Write the contents of the argument 
              and save together with the file_end template.
-         Output is saved to OUTPUT directory.
+         Output is saved to output directory.
     """
-    with open(os.path.join('CODE', 'file_end.tex'), 'r') as f:
+    with open(os.path.join('code', 'file_end.tex'), 'r') as f:
         running_tex_str += f.read()
-    with open(os.path.join('OUTPUT', 'stock_report.tex'), 'w') as f:
+    with open(os.path.join('output', 'stock_report.tex'), 'w') as f:
         f.write(running_tex_str)
     return
 
@@ -224,10 +226,11 @@ def get_contents(filename):
     In:  filename
     Out: file_start template and the contents of the file named as argument.
     """
-    with open(os.path.join('CODE', 'file_start.tex'), 'r') as f:
+    with open(os.path.join('code', 'file_start.tex'), 'r') as f:
         running_tex_str = f.read()
-    with open(os.path.join('DATA', filename), 'r') as f:
+    with open(os.path.join('data', filename), 'r') as f:
         contents = f.read().split('\n')
+        contents = [i for i in contents if i]
     return contents, running_tex_str
 
 def create_ticker_string(contents):

@@ -149,7 +149,7 @@ def get_contents(filename):
     Out: file_start template and the contents of the file named as argument.
          Ending in main directory.
     """
-    with open(os.path.join('DATA', filename), 'r') as f:
+    with open(os.path.join('data', filename), 'r') as f:
         contents = f.read().split('\n')
     return contents
 
