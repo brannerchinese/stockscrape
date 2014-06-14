@@ -9,6 +9,8 @@
 
 To explore web scraping using the headline news service on http://finance.yahoo.com.
 
+See the PDF file in the output directory for a sample.
+
 ## Principal Contents
 
 ### Python Programs
