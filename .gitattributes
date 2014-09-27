@@ -1,4 +1,4 @@
-*vanguard.txt
-*stock_list.txt
-stock_report.*
-*.db
+*vanguard.txt filter=git-blur diff=git-blur
+*stock_list.txt filter=git-blur diff=git-blur
+stock_report.* filter=git-blur diff=git-blur
+*.db filter=git-blur diff=git-blur
