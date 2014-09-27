@@ -15,7 +15,7 @@ See the PDF file in the output directory for a sample.
 
 ### Python Programs
 
-All code is tested with Python v. 3.2 only.
+All code is tested with Python v. 3.4 only.
 
 1. `headline_to_db.py`: **Newly revised with this version**. Preliminary version of `stockscrape.py` modified to save unique headlines and associated information to a SQLite database. There will be a separate `db_to_latex.py` program to produce LaTeX output from the database, but it has not been implemented yet.
 
@@ -67,6 +67,10 @@ This version scrapes the Yahoo financial news site using Beautiful Soup 4.
  * Phase 1: ( **Finished**) Basic scraper and LaTeX output of API-data and scraped headlines.
  * Phase 2: Now underway: Use SQL to store and manipulate data.
  * Phase 3: Use a web framework to create a GUI for easy management of the application.
+
+### Urgent next change
+
+ * Separate download of data from storage to database. Database was originally not committed in repository, but is being committed as part of an interim experiment. Instead, downloaded data should be saved to a text file; the database should be recoverable from these text files.
 
 ---
 
