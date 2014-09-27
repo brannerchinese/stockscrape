@@ -1,6 +1,6 @@
 ## stockscrape
 
-**Version**: 2.0, 20130405
+**Version**: 2.1, 20140927
 
 **Author**: David Prager Branner
 
@@ -25,11 +25,11 @@ All code is tested with Python v. 3.2 only.
 
 ### Directories
 
-`OUTPUT/`: where output file, `stock_report.tex` is saved. Note that this file needs to be compiled with LaTeX in order to be usable. The LaTeX output file `stock_report.pdf` will normally be found here as well.
+`OUTPUT/`: where output file, `stock_report.tex` is saved. Note that this file needs to be compiled with LaTeX in order to be usable. The LaTeX output file `stock_report.pdf` will normally be found here as well; `stock_report_sample.tex` and `stock_report_sample.pdf` are samples, but the actual `stock_report.tex` and `stock_report.pdf` included in this repository are encrypted.
 
 `CODE/`: contains `.tex` templates for beginning and end of output file.
 
-`DATA/`: contains `.txt` file of stock tickers to be looked up, one per line.
+`DATA/`: contains `.txt` file of stock tickers to be looked up, one per line. Rename `stock_list_sample.txt` to `stock_list.txt` to run the code with an actual example. (The file already entitled `stock_list.txt` and included in this repository is encrypted.)
 
 ### Scripts
 
@@ -60,6 +60,7 @@ This version scrapes the Yahoo financial news site using Beautiful Soup 4.
 1. Headlines now have clickable URLs attached to them.
 1. Output to STDOUT and PDF both somewhat compressed now.
 1. Numerous other small changes.
+1. Actual data files encrypted.
 
 ### Overview of project
 
@@ -71,6 +72,7 @@ This version scrapes the Yahoo financial news site using Beautiful Soup 4.
 
 Past versions:
 
+ * 2.0, 20130405
  * 1.5, 20130313
  * 1.42, 20130304
  * 1.41, 20130228
@@ -83,3 +85,5 @@ Past versions:
  * 0.3, 20130213
  * 0.2, 20130213
  * 0.1, 20130212
+
+[end]
