@@ -1,0 +1,429 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+% THIS TEMPLATE IS DATED 20130327
+
+\documentclass[11pt,asymmetric]{article}
+\usepackage[tmargin=1in, bmargin=1in, lmargin=0.5in, rmargin=0.5in]{geometry}
+\geometry{letterpaper}
+%\geometry{landscape} % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[fleqn,reqno]{amsmath}
+\usepackage{mathspec}			% replaces amssymb; do not use unicode-math
+\usepackage{url}
+\usepackage{datetime}		% allows \currenttime
+
+\usepackage[italic,noendash]{mathastext}	% propagates document text font to math mode; use option italic to get italic text in math mode
+
+\usepackage{mdwtab}				% allows the use of footnotes in tables
+\usepackage[hang,flushmargin]{footmisc}	% makes footnotes flush with margin, etc.
+\usepackage{setspace}			% control of line spacing
+\usepackage[normalem]{ulem}		% underlining (with ``normal emphasis'' retained)
+\usepackage{longtable}			% allows breaking of tables across pages with \begin{longtable}
+
+\usepackage[compact]{titlesec}		% compact section headings
+\titlespacing{\section}{0pt}{*0}{0pt}
+\titlespacing{\subsection}{0pt}{*0}{0pt}
+
+\newcommand\head[1]{\textbf{\textsf{#1}}}
+
+\setromanfont[Scale=1,Mapping=tex-text]{TeX Gyre Termes}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{TeX Gyre Heros Cn}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RE,LO]{\footnotesize{printed at \currenttime, \today}}
+\fancyfoot[C]{\thepage}
+\headheight14.5pt		% this value chosen in response to warning messages
+
+\usepackage{hyperref}	% allows links to be placed in text
+
+\frenchspacing
+\raggedright
+
+\parskip9pt
+
+\usepackage{enumitem}
+\setlist{nolistsep} % or \setlist{noitemsep} to leave space around whole list
+
+
+\title{Stock Prices}
+
+\setlength{\parindent}{0cm}	% no paragraph indent
+
+\begin{document}
+\maketitle
+
+\begin{table}[htdp]
+\begin{center}
+\begin{tabular}{|l|>{\raggedright}p{.75in}|>{\flushright}p{.5in}|>{\flushright}p{.525in}|>{\flushright}p{.525in}|p{.5in}|>{\raggedright}p{.7in}|p{.7in}|}\hline
+\head{Ticker} & \head{Last Trade Date} & \head{Last Trade} & \head{Change} & \head{\% Change} & \head{Dividend/ Share} & \head{Dividend Pay Date} & \head{Ex-dividend Date} \\\hline
+\head{ALU} & 9/26/2014 & 3.13 & +0.02 & +0.64\% & 0.175 & 19-Dec-13 &  3-Dec-13\\ \hline
+\head{BDN} & 9/26/2014 & 14.34 & +0.17 & +1.20\% & 0.60 & Oct 20 & Jul  2\\ \hline
+\head{CMCSA} & 9/26/2014 & 54.21 & +0.27 & +0.50\% & 0.84 & Oct 22 & Jun 30\\ \hline
+\head{DTE} & 9/26/2014 & 75.49 & +0.11 & +0.15\% & 2.655 & Oct 15 & Sep 11\\ \hline
+\head{DUK} & 9/26/2014 & 73.98 & +0.02 & +0.03\% & 3.135 & Sep 16 & Aug 13\\ \hline
+\head{EQY} & 9/26/2014 & 21.68 & +0.23 & +1.07\% & 0.88 & Sep 30 & Sep 12\\ \hline
+\head{FB} & 9/26/2014 & 78.64 & +1.42 & +1.84\% & 0.00 & N/A & N/A\\ \hline
+\head{FMAGX} & 9/25/2014 & 93.63 & -1.70 & -1.78\% & N/A & N/A & N/A\\ \hline
+\head{FRIFX} & 9/25/2014 & 11.50 & -0.01 & -0.09\% & N/A & N/A & N/A\\ \hline
+\head{FTR} & 9/26/2014 & 6.33 & -0.115 & -1.78\% & 0.40 & Sep 30 & Sep 10\\ \hline
+\head{GE} & 9/26/2014 & 25.69 & +0.14 & +0.55\% & 0.88 & Oct 27 & Sep 18\\ \hline
+\head{GXP} & 9/26/2014 & 24.21 & +0.01 & +0.04\% & 0.92 & Sep 19 & Aug 26\\ \hline
+\head{LTC} & 9/26/2014 & 37.63 & +0.35 & +0.94\% & 2.04 & Sep 30 & Sep 18\\ \hline
+\head{MAA} & 9/26/2014 & 66.27 & +0.72 & +1.10\% & 2.885 & Oct 31 & Jul 11\\ \hline
+\head{MSFT} & 9/26/2014 & 46.4755 & +0.4355 & +0.95\% & 1.12 & Dec 11 & Aug 19\\ \hline
+\head{NCR} & 9/26/2014 & 33.905 & +0.715 & +2.15\% & 0.00 & N/A &  1-Oct-07\\ \hline
+\head{NU} & 9/26/2014 & 44.37 & +0.10 & +0.23\% & 1.547 & Sep 30 & Sep 11\\ \hline
+\head{SE} & 9/26/2014 & 39.16 & +0.36 & +0.93\% & 1.31 & Sep  9 & Aug  8\\ \hline
+\head{SNH} & 9/26/2014 & 21.235 & +0.265 & +1.26\% & 1.56 & Aug 21 & Jul 16\\ \hline
+\head{T} & 9/26/2014 & 35.25 & +0.17 & +0.48\% & 1.83 & Aug  1 & Jul  8\\ \hline
+\head{TDC} & 9/26/2014 & 42.23 & +0.47 & +1.13\% & 0.00 & N/A & N/A\\ \hline
+\head{VZ} & 9/26/2014 & 49.77 & +0.16 & +0.32\% & 2.12 & Nov  3 & Jul  8\\ \hline
+\head{XRX} & 9/26/2014 & 13.225 & +0.0275 & +0.21\% & 0.242 & Oct 31 & Jun 26\\ \hline
+\end{tabular}
+ \end{center}
+ \end{table}%
+\clearpage
+
+\section*{ALU}
+
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/nuage-networks-delivers-sdn-integration-160000626.html}{Nuage Networks Delivers SDN Integration with Oracle OpenStack for Oracle Linux} (PR Newswire)
+\end{itemize}
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/alcatel-lucents-mpr-units-small-150054235.html}{Alcatel-Lucent's New MPR Units for Small-Cell Backhaul} (Zacks)
+\item\ \href{http://finance.yahoo.com/news/alcatel-lucent-double-capacity-todays-083000367.html}{Alcatel-Lucent to double capacity of today's data transport networks by being first to deliver a single-carrier 200G DWDM optical line card} (PR Newswire)
+\end{itemize}
+\subsection*{Tuesday, September 23, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/alcatel-lucent-extends-mobile-backhaul-080000413.html}{Alcatel-Lucent extends mobile backhaul capabilities, allowing operators to accelerate small cell deployment to offer customers widespread LTE access} (PR Newswire)
+\end{itemize}
+
+\section*{BDN}
+
+\subsection*{Monday, September 22, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/hill-international-move-corporate-headquarters-140000728.html}{Hill International to Move Corporate Headquarters to Center City Philadelphia; NYSE-Listed Company Signs Lease for 60,000 Square Feet at One Commerce Square} (GlobeNewswire)
+\end{itemize}
+
+\section*{CMCSA --- No news since Saturday, September 20, 2014.}
+
+
+\section*{DTE --- No news since Saturday, September 20, 2014.}
+
+
+\section*{DUK}
+
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://www.bloomberg.com/video/bloomberg-s-top-ten-stocks-for-sept-25-ZpqfXqvTQ~S2hHri7dnYUA.html?cmpid=yhoo}{[video] The Top Ten Stocks for Sept. 25} (Bloomberg)
+\item\ \href{http://www.bloomberg.com/news/2014-09-25/phoenix-solar-to-build-32-megawatt-plant-for-duke-energy.html?cmpid=yhoo}{Phoenix Solar to Build 32-Megawatt Plant for Duke Energy} (Bloomberg)
+\end{itemize}
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/duke-energy-buys-nc-solar-215001308.html}{Duke Energy Buys NC Solar Farm, Wind Project in the Cards} (Zacks)
+\item\ \href{http://finance.yahoo.com/news/duke-energy-says-close-sc-153107154.html}{Duke Energy says it will close SC coal ash pits} (AP)
+\item\ \href{http://finance.yahoo.com/news/duke-energy-creates-10-million-151000364.html}{Duke Energy creates \$10 million Water Resources Fund for waterways in the Carolinas and neighboring states} (PR Newswire)
+\end{itemize}
+\subsection*{Tuesday, September 23, 2014}
+\begin{itemize}
+\item\ \href{http://www.bloomberg.com/news/2014-09-23/vestas-wins-110-mw-duke-energy-texan-wind-turbine-order.html?cmpid=yhoo}{Vestas Wins 110-MW Duke Energy Texan Wind Turbine Order} (Bloomberg)
+\item\ \href{http://finance.yahoo.com/news/heliosage-announces-40-megawatt-project-130800119.html}{HelioSage Announces 40 Megawatt Project Sale to Duke Energy} (PR Newswire)
+\item\ \href{http://finance.yahoo.com/news/8-billion-green-energy-initiative-120000737.html}{\$8-billion green energy initiative proposed for Los Angeles} (PR Newswire)
+\end{itemize}
+\subsection*{Monday, September 22, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/duke-energy-supplies-additional-details-130000738.html}{Duke Energy supplies additional details on solar projects as part of \$500 million commitment} (PR Newswire)
+\end{itemize}
+
+\section*{EQY --- No news since Saturday, September 20, 2014.}
+
+
+\section*{FB}
+
+\subsection*{Friday, September 26, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/facebook-other-social-networks-monetize-192951081.html}{How Facebook and other social networks monetize users’ data} (Market Realist)
+\item\ \href{http://www.usatoday.com/story/tech/2014/09/26/starboard-yahoo-aol/16266855/}{Starboard tells Yahoo: Merge with AOL} (USA TODAY)
+\item\ \href{http://news.investors.com/092614-719173-few-internet-users-buy-with-buy-buttons-on-social-websites.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Few People Making Purchases With Social `Buy' Buttons} (Investor's Business Daily)
+\item\ \href{http://finance.yahoo.com/news/u-outgunned-extremists-social-media-040015318.html}{U.S. Outgunned by Extremists on New YouTube, Twitter Battlefield} (Bloomberg)
+\item\ \href{http://finance.yahoo.com/news/why-facebook-getting-serious-video-170005666.html}{Why Facebook is getting serious in the video ad space} (Market Realist)
+\item\ \href{http://finance.yahoo.com/news/thiel--ask-more-questions-before-enrolling-in-college-200631114.html}{Thiel: Ask more questions before enrolling in college} (Yahoo Finance)
+\item\ \href{http://finance.yahoo.com/news/details-emerge-facebooks-buy-button-154300476.html}{New Details Emerge About Facebook's `Buy' Button} (Entrepreneur)
+\item\ \href{http://www.thestreet.com/story/12893733/1/why-facebook-fb-stock-is-up-today.html?puc=yahoo&cm_ven=YAHOO}{Why Facebook (FB) Stock Is Up Today} (TheStreet)
+\item\ \href{http://www.marketwatch.com/News/Story/Story.aspx?guid=2D417042-4469-11E4-B28B-1FD1A673269F&siteid=yhoof2}{Facebook killer called Ello gets the timing right} (MarketWatch)
+\item\ \href{http://www.cnbc.com/id/102032855?__source=yahoo%7cfinance%7cheadline%7cheadline%7cstory&par=yahoo&doc=102032855}{Fast-growing Ello a Facebook killer? Not so fast} (CNBC)
+\item\ \href{http://www.usatoday.com/story/money/business/2014/09/26/tech-titans-bolt-conservative-alec-over-climate-flap/16233881/}{Google cites climate change as tech titans quit ALEC} (USA TODAY)
+\item\ \href{http://finance.yahoo.com/news/e-u-set-approve-facebook-102718691.html}{E.U. set to approve Facebook’s acquisition of WhatsApp} (Fortune)
+\item\ \href{http://www.engadget.com/2014/09/26/facebook-buy-stripe/?ncid=rss_truncated}{Stripe gave Twitter its `Buy' button, and now it's working with Facebook} (Engadget)
+\end{itemize}
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://www.bloomberg.com/news/2014-09-25/facebook-can-appeal-n-y-disability-probe-subpoena-ruling.html?cmpid=yhoo}{Facebook Can Appeal N.Y. Disability Probe Subpoena Ruling} (Bloomberg)
+\item\ \href{http://finance.yahoo.com/tumblr/blog-todays-market-thorns-roses-and-all-time-highs-213948704.html}{Today's Market Thorns, Roses, and All Time Highs... Plus an Extra...} (Yahoo Finance Blogs)
+\item\ \href{http://video.cnbc.com/gallery/?video=3000313673&__source=yahoo%7cheadline%7cquote%7cvideo%7c&par=yahoo}{[video] Apple ready to monetize 800 million credit cards: Pro} (CNBC)
+\item\ \href{http://finance.yahoo.com/video/apple-looks-good-pro-210300318.html}{Apple ready to monetize 800 million credit cards on file:...} (CNBC)
+\item\ \href{http://finance.yahoo.com/news/why-does-amazon-spend-most-210007373.html}{Why does Amazon spend the most on Google advertisements?} (Market Realist)
+\item\ \href{http://news.investors.com/092514-719029-palo-alto-networks-arista-networks-show-strength.htm?ven=yahoocp&src=aurlled&ven=yahoo}{2 Emerging Tech Leaders Holding Up Well In Down Market} (Investor's Business Daily)
+\item\ \href{http://online.wsj.com/articles/eu-looks-poised-to-approve-facebooks-purchase-of-whatsapp-1411666891?mod=yahoo_hs}{[\$\$] EU Looks Poised to Approve Facebook's Purchase of WhatsApp} (The Wall Street Journal)
+\item\ \href{http://video.cnbc.com/gallery/?video=3000313847&__source=yahoo%7cheadline%7cquote%7cvideo%7c&par=yahoo}{[video] Tech swoon: Apple leads decline} (CNBC)
+\item\ \href{http://finance.yahoo.com/video/tech-swoon-apple-leads-decline-194600814.html}{Tech swoon: Apple leads decline} (CNBC)
+\item\ \href{http://finance.yahoo.com/news/facebook-incs-whatsapp-deal-set-183803835.html}{Facebook Inc's WhatsApp Deal Set For EU Antitrust OK} (Benzinga)
+\item\ \href{http://news.investors.com/092514-718970-yahoo-gets-third-downgrade-this-week.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Yahoo Handed Its Third Downgrade Since Alibaba IPO} (Investor's Business Daily)
+\item\ \href{http://finance.yahoo.com/video/yahoo-falls-downgrade-165200070.html}{Yahoo falls on downgrade} (CNBC)
+\end{itemize}
+
+\section*{FMAGX --- No news since Saturday, September 20, 2014.}
+
+
+\section*{FRIFX --- No news since Saturday, September 20, 2014.}
+
+
+\section*{FTR}
+
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/illinois-wesleyan-university-moves-cloud-180000010.html}{Illinois Wesleyan University Moves to Cloud Communications With Mitel and Frontier Communications} (GlobeNewswire)
+\end{itemize}
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/frontier-communications-release-third-quarter-191700815.html}{Frontier Communications to Release Third-Quarter 2014 Results and Host Call} (Business Wire)
+\end{itemize}
+
+\section*{GE}
+
+\subsection*{Friday, September 26, 2014}
+\begin{itemize}
+\item\ \href{http://news.investors.com/092614-719168-general-electric-focuses-on-industrial-business.htm?ven=yahoocp&src=aurlled&ven=yahoo}{GE Continues Oil \& Gas Focus With New Equipment Plant} (Investor's Business Daily)
+\item\ \href{http://www.bloomberg.com/news/2014-09-26/cameroon-water-supply-to-be-boosted-by-u-s-consortium.html?cmpid=yhoo}{Cameroon Water Supply to Be Boosted by U.S. Consortium} (Bloomberg)
+\item\ \href{http://finance.yahoo.com/news/ge-oil-gas-plans-open-140000325.html}{GE Oil \& Gas Plans to Open an Advanced Manufacturing Facility in Jacksonville, Florida} (Business Wire)
+\item\ \href{http://finance.yahoo.com/news/inplay-briefing-com-055139997.html#ge}{6:43 am General Electric now expects the close of its GE Money Bank AB (Nordics) consumer finance business sale to Santander (<a href=''/q?s=san'' name=''san''>SAN</a>) Consumer Finance S.A. to be in the fourth quarter of 2014} (Briefing.com)
+\item\ \href{http://finance.yahoo.com/news/ge-capital-provides-timing-expected-103000555.html}{GE Capital Provides Update on Timing of Expected Close of Its GE Money Bank AB (Nordics) Sale to Santander Consumer Finance S.A.} (Business Wire)
+\end{itemize}
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/sunedison-sune-shares-acquisition-rumors-172002587.html}{SunEdison (SUNE) Shares Up on Acquisition Rumors} (Zacks)
+\item\ \href{http://finance.yahoo.com/news/general-electric-company-stock-may-153237562.html}{General Electric Company Stock May `See The Lights Go Out': A Technical Analysis} (Benzinga)
+\item\ \href{http://finance.yahoo.com/news/ge-upgraded-buy-strategic-restructuring-144445042.html}{GE Upgraded to Buy on Strategic Restructuring Initiatives} (Zacks)
+\item\ \href{http://finance.yahoo.com/news/ge-evolve-led-security-light-143100006.html}{GE’s Evolve™ LED Security Light Saves Money and Maintenance Needs with Energy-Efficient Lighting} (Business Wire)
+\end{itemize}
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://www.bloomberg.com/news/2014-09-25/nbcuniversal-must-face-mgm-lawsuit-over-james-bond-knockoff-.html?cmpid=yhoo}{NBCUniversal Must Face MGM Lawsuit Over James Bond ‘Knockoff’} (Bloomberg)
+\item\ \href{http://news.investors.com/092414-718804-general-electric-restructuring.htm?ven=yahoocp&src=aurlled&ven=yahoo}{GE Tries To Return To Glory With Restructuring} (Investor's Business Daily)
+\item\ \href{http://finance.yahoo.com/news/ge-compression-technology-enhance-total-150516280.html}{GE Compression Technology to Enhance Total S.A. Refinery} (Zacks)
+\item\ \href{http://www.thestreet.com/story/12890921/1/dow-jones-djia-today-general-electric-ge-lower.html?puc=yahoo&cm_ven=YAHOO}{Dow Jones (DJIA) Today: General Electric (GE) Lower} (TheStreet)
+\item\ \href{http://finance.yahoo.com/news/ge-power-express-remote-combiner-133000787.html}{New GE Power Express Remote Combiner Powers ``Small-Cell'' Telecommunications and Distributed Antenna System Networks} (Marketwired)
+\item\ \href{http://finance.yahoo.com/news/ge-penn-state-10m-gas-drilling-center-114630191--finance.html}{GE to give Penn State \$10M for gas drilling center} (AP)
+\end{itemize}
+\subsection*{Tuesday, September 23, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/video/rumor-patrol-3d-systems-gogo-212500790.html}{Rumor Patrol: 3D Systems \& Gogo} (CNBC)
+\item\ \href{http://online.barrons.com/article/SB52784017629588234037504580172303586456916.html?mod=yahoobarrons&ru=yahoo}{[\$\$] Time to Bet on GE} (Barrons.com)
+\item\ \href{http://news.investors.com/092314-718567-Philips-split-follows-ge-and-siemens-examples.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Philips To Split Off Lighting Business} (Investor's Business Daily)
+\item\ \href{http://www.ft.com/cms/s/ca40a3a4-432e-11e4-9a58-00144feabdc0,s01=1.html}{General Electric: Imposing discipline} (Financial Times)
+\item\ \href{http://finance.yahoo.com/news/alstom-seeks-transport-deals-beyond-164358301.html}{Alstom seeks transport deals beyond GE signaling unit} (Reuters)
+\item\ \href{http://finance.yahoo.com/news/ge-launches-flagship-novalt16-gas-160000278.html}{GE Launches New Flagship NovaLT16 Gas Turbine and Signs MOU with TransCanada for Further Development} (CNW Group)
+\item\ \href{http://money.cnn.com/2014/09/23/investing/general-electric-stock-ge/index.html?source=yahoo_quote}{Baby GEs? General Electric may need a breakup} (CNNMoney.com)
+\item\ \href{http://money.cnn.com/video/investing/2014/09/23/ge-needs-a-change-to-return-to-glory-days.cnnmoney}{[video] GE is dead in the water} (CNNMoney.com)
+\item\ \href{http://www.bloomberg.com/news/2014-09-23/ge-agrees-to-supply-40-megawatts-of-turbines-to-poland-wind-farm.html?cmpid=yhoo}{GE Agrees to Supply 40 Megawatts of Turbines to Poland Wind Farm} (Bloomberg)
+\end{itemize}
+
+\section*{GXP --- No news since Saturday, September 20, 2014.}
+
+
+\section*{LTC}
+
+\subsection*{Friday, September 26, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/ltc-senior-management-participate-24th-133000291.html}{LTC Senior Management to Participate in the 24th NIC National Conference} (Business Wire)
+\end{itemize}
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://www.forbes.com/sites/moneybuilder/2014/09/24/funding-your-retirement-with-retirement-reits/?partner=yahootix}{Funding Your Retirement With Retirement REITs} (Forbes)
+\item\ \href{http://www.forbes.com/sites/moneybuilder/2014/09/24/five-reits-that-consistently-raise-their-dividends/?partner=yahootix}{Five REITs That Consistently Raise Their Dividends} (Forbes)
+\item\ \href{http://news.morningstar.com/articlenet/article.aspx?id=666104&SR=Yahoo}{Seeking Small-Cap Moats: Latchways} (Morningstar)
+\end{itemize}
+
+\section*{MAA --- No news since Saturday, September 20, 2014.}
+
+
+\section*{MSFT}
+
+\subsection*{Friday, September 26, 2014}
+\begin{itemize}
+\item\ \href{http://www.foxbusiness.com/technology/2014/09/26/tech-rewind-apple-plays-defense-blackberry-claws-back/}{Tech Rewind: Apple Plays Defense; BlackBerry Claws Back} (Fox Business)
+\item\ \href{http://www.forbes.com/sites/insertcoin/2014/09/26/where-does-destiny-go-from-here/?partner=yahootix}{Where Does `Destiny' Go From Here?} (Forbes)
+\item\ \href{http://finance.yahoo.com/news/microsoft-21vianet-announce-webdirect-payment-120000570.html}{Microsoft and 21Vianet Announce WebDirect Payment Services for Windows Azure Services in China} (GlobeNewswire)
+\item\ \href{http://finance.yahoo.com/blogs/hot-stock-minute/final-gdp-revision--apple-responds-to-bendgate--faa-will-let-drones-fly-in-hollywood-115746363.html}{GDP grew 4.6\% in 2Q; Apple responds to bendgate; FAA will let drones fly in Hollywood} (Hot Stock Minute)
+\item\ \href{http://video.cnbc.com/gallery/?video=3000314337&__source=yahoo%7cheadline%7cquote%7cvideo%7c&par=yahoo}{[video] Elegant disruptions in Silicon Valley: Quip CEO} (CNBC)
+\item\ \href{http://finance.yahoo.com/video/elegant-disruptions-silicon-valley-quip-114400105.html}{Elegant disruptions in Silicon Valley: Quip CEO} (CNBC)
+\item\ \href{http://www.thestreet.com/_yahoo/story/12893406/1/gamestop-to-double-seasonal-workers-for-the-holiday-shopping.html?cm_ven=YAHOOV&cm_cat=FREE&cm_ite=NA}{[video] GameStop to Double Seasonal Workers for the Holiday Shopping} (TheStreet)
+\item\ \href{http://finance.yahoo.com/video/no-more-files-quip-ceo-114200719.html}{No more files? Quip CEO} (CNBC)
+\item\ \href{http://finance.yahoo.com/news/microsoft-offers-first-look-windows-110707224.html}{Microsoft offers first look at new Windows - and gives it a name} (Reuters)
+\item\ \href{http://www.usatoday.com/story/money/business/2014/09/26/tech-titans-bolt-conservative-alec-over-climate-flap/16233881/}{Google cites climate change as tech titans quit ALEC} (USA TODAY)
+\item\ \href{http://www.forbes.com/sites/dougyoung/2014/09/26/intel-microsoft-on-china-offensives-with-deal-ceo-visit/?partner=yahootix}{Intel, Microsoft On China Offensives With Deal, CEO Visit} (Forbes)
+\end{itemize}
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://www.thestreet.com/_yahoo/story/12893097/1/markets-sell-off-across-the-board-biggest-one-day-loss-since-july.html?cm_ven=YAHOOV&cm_cat=FREE&cm_ite=NA}{[video] Markets Sell Off Across the Board in Biggest One-Day Loss Since July} (TheStreet)
+\item\ \href{http://news.investors.com/092514-719029-palo-alto-networks-arista-networks-show-strength.htm?ven=yahoocp&src=aurlled&ven=yahoo}{2 Emerging Tech Leaders Holding Up Well In Down Market} (Investor's Business Daily)
+\item\ \href{http://finance.yahoo.com/news/under-steve-ballmer-la-clippers-192400043.html}{Under Steve Ballmer, LA Clippers bench the iPads} (CNNMoney.com)
+\item\ \href{http://finance.yahoo.com/news/l-clippers-steve-ballmer-prizes-013520178.html}{At L.A. Clippers, Steve Ballmer prizes team tested by adversity} (Reuters)
+\item\ \href{http://finance.yahoo.com/video/steve-ballmers-la-clippers-vision-175400787.html}{Steve Ballmer's LA Clippers vision} (CNBC)
+\item\ \href{http://news.investors.com/092514-718979-vrx-stock-rises-vesneo-trial-succeeds.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Valeant: Glaucoma Drug Is Potential Blockbuster} (Investor's Business Daily)
+\item\ \href{http://www.forbes.com/sites/adamhartung/2014/09/25/the-week-microsoft-lost-relevancy-and-apple-stole-the-show/?partner=yahootix}{The Week Microsoft Lost Relevancy, And Apple Stole the Show} (Forbes)
+\item\ \href{http://finance.yahoo.com/news/microsoft-corporation-shares-still-powering-153412348.html}{Microsoft Corporation Shares Still Powering Higher} (Benzinga)
+\item\ \href{http://www.forbes.com/sites/davidthier/2014/09/25/xbox-one-continues-to-tank-in-japan/?partner=yahootix}{Xbox One Continues to Tank In Japan} (Forbes)
+\item\ \href{http://finance.yahoo.com/video/steve-ballmer-grades-own-legacy-151500329.html}{Steve Ballmer grades own legacy} (CNBC)
+\item\ \href{http://www.bloomberg.com/video/fundstrat-s-tom-lee-on-stocks-investment-strategy-M9Zv564rTmG5rDkNV2ajDg.html?cmpid=yhoo}{[video] Fundstrat's Tom Lee Likes Macy's, Microsoft (Video)} (Bloomberg)
+\item\ \href{http://video.cnbc.com/gallery/?video=3000313638&__source=yahoo%7cheadline%7cquote%7cvideo%7c&par=yahoo}{[video] Ballmer's post-Microsoft chapter} (CNBC)
+\item\ \href{http://finance.yahoo.com/video/ballmers-post-microsoft-chapter-140700812.html}{Ballmer's post-Microsoft chapter} (CNBC)
+\item\ \href{http://finance.yahoo.com/video/steve-ballmer-nadella-off-fantastic-131500214.html}{Steve Ballmer: Nadella off to fantastic start} (CNBC)
+\end{itemize}
+
+\section*{NCR}
+
+\subsection*{Friday, September 26, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/video/fmhr-final-trade-mrk-ncr-165800476.html}{FMHR Final Trade: MRK, NCR \& more} (CNBC)
+\item\ \href{http://video.cnbc.com/gallery/?video=3000314137&__source=yahoo%7cheadline%7cquote%7cvideo%7c&par=yahoo}{[video] FMHR Final Trade: MRK, NCR \& more} (CNBC)
+\item\ \href{http://biz.yahoo.com/e/140926/ncr8-k.html}{NCR CORP Files SEC form 8-K, Other Events} (EDGAR Online)
+\item\ \href{http://finance.yahoo.com/news/inplay-briefing-com-055139997.html#ncr}{12:00 pm NCR Corp: Seventh Circuit rules in favor of NCR in Fox River appeals} (Briefing.com)
+\item\ \href{http://finance.yahoo.com/news/seventh-circuit-rules-favor-ncr-155900466.html}{Seventh Circuit Rules in Favor of NCR in Fox River Appeals} (Business Wire)
+\end{itemize}
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/ncr-offer-pos-solution-tony-170003659.html}{NCR to Offer POS Solution to Tony Roma's Brazil Unit} (Zacks)
+\end{itemize}
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/tony-roma-uses-ncr-restaurant-120000759.html}{Tony Roma’s Uses NCR Restaurant Technology to Open First Site in Brazil and Better Manage Operations} (Business Wire)
+\end{itemize}
+\subsection*{Monday, September 22, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/china-merchants-bank-selects-ncr-120000622.html}{China Merchants Bank Selects NCR Dynamic eLock Management Solution} (Business Wire)
+\end{itemize}
+
+\section*{NU}
+
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://www.moodys.com/page/viewresearchdoc.aspx?docid=PR_309156&WT.mc_id=AM~WWFob29fRmluYW5jZTQyX1NCX1JhdGluZyBOZXdzX0FsbF9Fbmc=~20140924_PR_309156}{Moody's Upgrades Six, Affirms Seven and Downgrades One CMBS Class of BSCMS 2004-PWR5} (Moody's)
+\end{itemize}
+
+\section*{SE --- No news since Saturday, September 20, 2014.}
+
+
+\section*{SNH}
+
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://www.forbes.com/sites/moneybuilder/2014/09/24/funding-your-retirement-with-retirement-reits/?partner=yahootix}{Funding Your Retirement With Retirement REITs} (Forbes)
+\end{itemize}
+
+\section*{T}
+
+\subsection*{Friday, September 26, 2014}
+\begin{itemize}
+\item\ \href{http://news.investors.com/092614-719176-apple-can-weather-currency-fluctuation-better-than-other-tech-companies.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Apple Better Off Than Most U.S. Tech Amid Weak Euro} (Investor's Business Daily)
+\item\ \href{http://www.thestreet.com/story/12893906/1/att-t-declares-46-cent-quarterly-dividend.html?puc=yahoo&cm_ven=YAHOO}{AT\&T (T) Declares 46 Cent Quarterly Dividend} (TheStreet)
+\item\ \href{http://finance.yahoo.com/news/t-gets-directv-shareholders-ahead-181002039.html}{AT\&T Gets DIRECTV Shareholders' Go-Ahead for Merger Deal} (Zacks)
+\item\ \href{http://www.thestreet.com/story/12893976/1/one-factor-driving-up-att-t-stock-today.html?puc=yahoo&cm_ven=YAHOO}{One Factor Driving Up AT\&T (T) Stock Today} (TheStreet)
+\end{itemize}
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/t-smartphone-suite-add-samsung-201219564.html}{AT\&T Smartphone Suite to Add Samsung Gear S This Fall} (Zacks)
+\item\ \href{http://news.investors.com/092514-718996-sierra-wireless-connects-internet-of-things.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Sierra Wireless Early To Connect Internet Of Things} (Investor's Business Daily)
+\item\ \href{http://finance.yahoo.com/news/directv-shareholders-overwhelmingly-approve-t-193338958.html}{DirecTV shareholders overwhelmingly approve AT\&T acquisition} (Reuters)
+\item\ \href{http://finance.yahoo.com/news/verizon-mulls-potential-divestment-tower-175003135.html}{Verizon Mulls Potential Divestment of Tower Assets} (Zacks)
+\item\ \href{http://finance.yahoo.com/news/henderson-state-university-expand-southwest-173000989.html}{Henderson State University to Expand Southwest Arkansas College Preparatory Academy with \$771,000 from AT\&T} (PR Newswire)
+\item\ \href{http://online.wsj.com/articles/directv-shareholders-approve-at-t-deal-1411659239?mod=yahoo_hs}{[\$\$] DirecTV Shareholders Approve AT\&T Deal} (The Wall Street Journal)
+\item\ \href{http://finance.yahoo.com/news/directv-shareholders-approve-48-5b-155945002.html}{DirecTV shareholders approve \$48.5B sale to AT\&T} (AP)
+\item\ \href{http://finance.yahoo.com/news/telecom-stock-roundup-t-eyes-144502414.html}{Telecom Stock Roundup: AT\&T Eyes SDN Solution, Telefonica to Buy GVT, China Mobile Adds 4G Users} (Zacks)
+\item\ \href{http://finance.yahoo.com/news/directv-stockholders-approve-merger-t-144400725.html}{DIRECTV Stockholders Approve Merger with AT\&T Inc.} (Business Wire)
+\item\ \href{http://www.bloomberg.com/news/2014-09-25/directv-shareholders-approve-48-5-billion-sale-to-at-t.html?cmpid=yhoo}{DirecTV Shareholders Approve \$48.5 Billion Sale to AT\&T} (Bloomberg)
+\item\ \href{http://video.cnbc.com/gallery/?video=3000313551&__source=yahoo%7cheadline%7cquote%7cvideo%7c&par=yahoo}{[video] New California law promotes LGBT business} (CNBC)
+\item\ \href{http://finance.yahoo.com/video/california-law-promotes-lgbt-business-140000150.html}{New California law promotes LGBT business} (CNBC)
+\item\ \href{http://finance.yahoo.com/news/customers-rate-t-high-speed-132600703.html}{Customers Rate AT\&T High Speed Internet And U-verse TV Highest In Customer Satisfaction In J.D. Power Study} (PR Newswire)
+\item\ \href{http://finance.yahoo.com/news/must-read-guide-china-long-130022758.html}{A must-read guide to China’s long-term outlook} (Market Realist)
+\item\ \href{http://finance.yahoo.com/news/park-partners-advises-260m-sale-060000656.html}{Park Partners Advises on \$260m Sale of Global Marine Services Limited} (PR Newswire)
+\end{itemize}
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/why-china-slowing-consumption-demand-210212702.html}{Why China’s slowing consumption demand is an important threat} (Market Realist)
+\item\ \href{http://www.nytimes.com/2014/09/25/business/media/comcast-accuses-rivals-of-extortion-in-opposing-its-bid-for-time-warner-cable.html?partner=yahoofinance}{Comcast Lashes Out at Rivals Opposed to Merger Plan} (New York Times)
+\item\ \href{http://finance.yahoo.com/video/ex-jcp-ceo-ron-johnsons-155000456.html}{Ex-JCP CEO Ron Johnson's new bet} (CNBC)
+\item\ \href{http://video.cnbc.com/gallery/?video=3000313458&__source=yahoo%7cheadline%7cquote%7cvideo%7c&par=yahoo}{[video] Ex-JCP CEO Ron Johnson's new bet} (CNBC)
+\end{itemize}
+\subsection*{Tuesday, September 23, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/t-offer-samsung-gear-fall-024100706.html}{AT\&T To Offer The Samsung Gear S This Fall} (PR Newswire)
+\item\ \href{http://news.investors.com/092314-718622-verizon-lte-multicast-technology-mobile-video.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Verizon Content Deals Await Nielsen Mobile TV Tools} (Investor's Business Daily)
+\end{itemize}
+
+\section*{TDC}
+
+\subsection*{Tuesday, September 23, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/teradata-named-dow-jones-sustainability-150000584.html}{Teradata Named to Dow Jones Sustainability North American Index} (PR Newswire)
+\end{itemize}
+\subsection*{Monday, September 22, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/teradata-executive-stephen-brobst-named-140000707.html}{Teradata Executive Stephen Brobst Named One of Top Four Chief Technology Officers in US} (PR Newswire)
+\end{itemize}
+
+\section*{VZ}
+
+\subsection*{Friday, September 26, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/verizon-sells-u-wireless-towers-142931852.html}{If Verizon Sells U.S. Wireless Towers, Who Is The Likely Buyer?} (Benzinga)
+\item\ \href{http://finance.yahoo.com/news/verizon-grants-help-48-england-132400564.html}{Verizon Grants to Help 48 New England Domestic Violence Prevention Organizations Expand Programs} (Business Wire)
+\item\ \href{http://finance.yahoo.com/news/beyond-wi-fi-mifi-r-120000548.html}{Beyond Wi-Fi: The MiFi(R) 6620L Lands on Verizon Wireless Sept 29} (GlobeNewswire)
+\item\ \href{http://www.engadget.com/2014/09/26/fios-app-ten-new-channels/?ncid=rss_truncated}{More HBO and Showtime channels can now stream via the FiOS app} (Engadget)
+\end{itemize}
+\subsection*{Thursday, September 25, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/video/cramer-know-own-222500067.html}{Cramer: Know what you own} (CNBC)
+\item\ \href{http://www.bloomberg.com/video/bloomberg-s-top-ten-stocks-for-sept-25-ZpqfXqvTQ~S2hHri7dnYUA.html?cmpid=yhoo}{[video] The Top Ten Stocks for Sept. 25} (Bloomberg)
+\item\ \href{http://news.investors.com/092514-718996-sierra-wireless-connects-internet-of-things.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Sierra Wireless Early To Connect Internet Of Things} (Investor's Business Daily)
+\item\ \href{http://finance.yahoo.com/news/verizon-mulls-potential-divestment-tower-175003135.html}{Verizon Mulls Potential Divestment of Tower Assets} (Zacks)
+\item\ \href{http://www.forbes.com/sites/steveschaefer/2014/09/25/stocks-slide-again-after-brief-break/?partner=yahootix}{Stocks Slide Again After Brief Break} (Forbes)
+\end{itemize}
+\subsection*{Wednesday, September 24, 2014}
+\begin{itemize}
+\item\ \href{http://www.thestreet.com/story/12890373/1/how-will-verizon-vz-stock-react-to-possible-tower-sale.html?puc=yahoo&cm_ven=YAHOO}{How Will Verizon (VZ) Stock React to Possible Tower Sale?} (TheStreet)
+\end{itemize}
+\subsection*{Tuesday, September 23, 2014}
+\begin{itemize}
+\item\ \href{http://finance.yahoo.com/news/verizon-hires-tap-advisors-plan-235123169.html}{Verizon hires TAP Advisors to plan sale of assets} (Reuters)
+\item\ \href{http://news.investors.com/092314-718624-dish-network-verizon-ready-Internet-video-services.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Will Internet TV Forge Dish, Verizon Wireless Deal?} (Investor's Business Daily)
+\item\ \href{http://news.investors.com/092314-718622-verizon-lte-multicast-technology-mobile-video.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Verizon Content Deals Await Nielsen Mobile TV Tools} (Investor's Business Daily)
+\item\ \href{http://www.bloomberg.com/news/2014-09-23/verizon-said-to-hire-tap-advisors-for-tower-sale-by-end-of-year.html?cmpid=yhoo}{Verizon Said to Hire TAP Advisors for Tower Sale by End of Year} (Bloomberg)
+\item\ \href{http://video.cnbc.com/gallery/?video=3000313182&__source=yahoo%7cheadline%7cquote%7cvideo%7c&par=yahoo}{[video] Rumor Patrol: 3D Systems \& Gogo} (CNBC)
+\item\ \href{http://finance.yahoo.com/video/rumor-patrol-3d-systems-gogo-212500790.html}{Rumor Patrol: 3D Systems \& Gogo} (CNBC)
+\item\ \href{http://www.engadget.com/2014/09/23/motorola-droid-turbo/?ncid=rss_truncated}{Motorola's new Droid Turbo says hello in leaked photos} (Engadget)
+\item\ \href{http://news.investors.com/092314-718549-apple-iphone-6-china-availability-impacts-forecasts.htm?ven=yahoocp&src=aurlled&ven=yahoo}{Video: iPhone 6 Tops \$3,000 In China's Gray Market} (Investor's Business Daily)
+\item\ \href{http://finance.yahoo.com/news/zacks-analyst-blog-highlights-glaxosmithkline-114146704.html}{The Zacks Analyst Blog Highlights: GlaxoSmithKline, Verizon Communications, AT\&T, Sprint and T-Mobile US} (Zacks)
+\end{itemize}
+\subsection*{Monday, September 22, 2014}
+\begin{itemize}
+\item\ \href{http://www.usatoday.com/story/tech/2014/09/22/weekend-iphone-sales/16040213/}{Weekend iPhone sales top 10 million} (USA TODAY)
+\item\ \href{http://www.cnbc.com/id/102022829?__source=yahoo%7cfinance%7cheadline%7cheadline%7cstory&par=yahoo&doc=102022829}{After-hours buzz: Herbalife, Autozone, \& more} (CNBC)
+\item\ \href{http://finance.yahoo.com/news/verizon-extends-voice-over-lte-200325721.html}{Verizon Extends Voice Over LTE Service to iPhone 6} (Zacks)
+\item\ \href{http://www.forbes.com/sites/halsinger/2014/09/22/a-tipping-point-in-the-net-neutrality-debate-user-directed-priority-could-bring-huge-benefits-to-broadband-customers/?partner=yahootix}{A Tipping Point In The Net Neutrality Debate? User-Directed Priority Could Bring Huge Benefits to Broadband Customers} (Forbes)
+\item\ \href{http://finance.yahoo.com/video/safest-cell-phone-180700395.html}{The safest cell phone} (CNBC)
+\item\ \href{http://finance.yahoo.com/news/small-cells-distributed-antenna-systems-175100027.html}{What are small cells and distributed antenna systems?} (PR Newswire)
+\end{itemize}
+
+\section*{XRX --- No news since Saturday, September 20, 2014.}
+
+
+\end{document}
