@@ -12,5 +12,5 @@ touch _third
 git add -A /home/dpb/github_public/stockscrape
 touch _fourth
 git commit -m 'upload downloads from today'
-touch _ fifth
+touch _fifth
 
