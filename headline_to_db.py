@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # headline_to_db.py
-# 20140613, works
-# Run with Python 3
+# David Prager Branner
+# 20150313, works
 
 """Look up vital stock data and headlines on Yahoo; store to database."""
 

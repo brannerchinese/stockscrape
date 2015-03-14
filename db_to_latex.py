@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # db_to_latex.py
-# 20140613, works
-# Run with Python
+# David Prager Branner
+# 20150313, works
 
 """Look up vital stock data and headlines in database; format in LaTeX."""
 
