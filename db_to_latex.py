@@ -63,7 +63,7 @@ def process_news(contents, running_tex_str, days_of_history):
     with SQ.connect('hl.db') as connection:
         cursor = connection.cursor()
         for symbol in contents:
-            print('\n\nNow processing {0}: '.format(symbol), 
+            print('\n\nNow processing {0}: '.format(symbol),
                     end='') # debug-print
             # First check for no news at all.
             cursor = cursor.execute('''SELECT headline FROM headlines '''
@@ -82,8 +82,8 @@ def process_news(contents, running_tex_str, days_of_history):
             for days_back in range(0, days_of_history):
                 the_date = today - D.timedelta(days_back)
                 print(the_date, end='') # debug-print
-                cursor = cursor.execute('''SELECT headline, source, date, url 
-                        FROM headlines WHERE ticker=? 
+                cursor = cursor.execute('''SELECT headline, source, date, url
+                        FROM headlines WHERE ticker=?
                         AND date=? ''', (symbol, the_date))
                 # Note that fetchall() returns a list of tuples
                 # If there is news for this date, then send to separate
@@ -97,7 +97,7 @@ def process_news(contents, running_tex_str, days_of_history):
                             append_dated_hl_to_tex(symbol, the_date, \
                             tuple_list, running_tex_str)
             if no_news:
-#                print('\n   sentintel remains SET for', symbol)
+#                print('\n   sentinel remains SET for', symbol)
 #                print('\n', running_tex_str[-30:])
                 print('\n    No news at all.', end='')
                 running_tex_str = re.sub('{' + symbol + '}$',\
@@ -109,10 +109,10 @@ def process_news(contents, running_tex_str, days_of_history):
 
 def append_dated_hl_to_tex(symbol, the_date, tuple_list, running_tex_str):
     """
-    In:  symbol (=ticker string), 
-         the_date (single date for the headlines in tuple_list), 
-         tuple_list: non-empty list of tuples, 
-             each tuple containing hl, source, date; 
+    In:  symbol (=ticker string),
+         the_date (single date for the headlines in tuple_list),
+         tuple_list: non-empty list of tuples,
+             each tuple containing hl, source, date;
          running_tex_str contains LaTeX preamble and section header for symbol
              and also any subsection headers for headlines with later dates.
     Out: running_tex_str now has \subsection for this date.
@@ -124,8 +124,8 @@ def append_dated_hl_to_tex(symbol, the_date, tuple_list, running_tex_str):
     running_tex_str += '\\begin{itemize}'
     for i in tuple_list:
         # Convert headline_list into string for .tex file
-        running_tex_str += ('\n\item\\ \\href{' + i[3] + '}{' + 
-                escape_for_latex(i[0]) + '} (' + 
+        running_tex_str += ('\n\item\\ \\href{' + i[3] + '}{' +
+                escape_for_latex(i[0]) + '} (' +
                 escape_for_latex(i[1]) + ')')
     running_tex_str += '\n\end{itemize}'
     return running_tex_str
@@ -180,7 +180,9 @@ def lookup(tickers, list_items, stats = 'sd1l1c1dr1q'):
     url = 'http://finance.yahoo.com/d/quotes.csv?s={0}&f={1}'.\
             format(tickers, stats)
     # get Yahoo data as list of lists
-    data_list = process_url(url, '\r\n')
+    # Below added [0].split('\n') because of apparent change in format.
+    # 20150313.
+    data_list = process_url(url, '\r\n')[0].split('\n')
     for item in data_list:
         one_row = item.split(',')
         # Next: build dictionary for each "item"
@@ -203,7 +205,7 @@ def process_url(url, split_here = ''):
         # So convert to Unicode now, because what we received is bytecode
         data_list = data_list.decode().split(split_here)
     except UE.URLError as e:
-        print('There is a URLerror\n', e, '\n and symbol =', symbol)
+        print('There is a URLerror\n', e, '\n and url =', url)
         # an empty return string will simply add no length to running value
         data_list = ''
     return data_list
@@ -211,7 +213,7 @@ def process_url(url, split_here = ''):
 def write_contents(running_tex_str):
     """
     In:  Argument is string of LaTeX content without end-of-document matter.
-    Out: Write the contents of the argument 
+    Out: Write the contents of the argument
              and save together with the file_end template.
          Output is saved to output directory.
     """
@@ -252,7 +254,7 @@ def format_data(is_dict):
     # Add percent change information
     # Note that this will eventually be change from last lookup (stored data),
     #   for now, calculated only based on downloaded values.
-    if is_dict['Change'] == 'N/A':
+    if is_dict['Change'] == 'N/A' or is_dict['Last trade'] == 'N/A':
         is_dict['Percent change'] = 'N/A'
     else:
         # float() is being used because these values are strings;

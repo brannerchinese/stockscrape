@@ -56,7 +56,7 @@ class StockScraper():
         # We don't want to destroy self.api_results in this process.
         temp_api_results = self.api_results
         while temp_api_results:
-            self.ticker_str = self.create_ticker_string(yahoo_limit)
+            self.create_ticker_string(yahoo_limit)
             temp_api_results = temp_api_results[yahoo_limit:]
             data.extend(self.lookup())
         self.tag_names.insert(4, 'Percent change')
@@ -257,7 +257,9 @@ class StockScraper():
         # get Yahoo data as list of lists
         url = ('http://finance.yahoo.com/d/quotes.csv?s={0}&f={1}'.
                 format(self.ticker_str, stats))
-        retrieved_contents = self.process_url(url, '\r\n')
+        # Below added [0].split('\n') because of apparent change in format.
+        # 20150313.
+        retrieved_contents = self.process_url(url, '\r\n')[0].split('\n')
         #
         # Prepare dictionary to be returned
         full_data = []
@@ -276,7 +278,7 @@ class StockScraper():
         # Add percent change information
         # Note that this will eventually be change from last lookup
         #   (stored data), for now, calculated only based on downloaded values.
-        if tckr_stats['Change'] == 'N/A':
+        if tckr_stats['Change'] == 'N/A' or tckr_stats['Last trade'] == 'N/A':
             tckr_stats['Percent change'] = 'N/A'
         else:
             # float() is being used because these values are strings;
