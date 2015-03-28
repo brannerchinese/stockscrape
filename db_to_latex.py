@@ -142,13 +142,13 @@ def escape_for_latex(a_string):
     # Using ordered dictionary in case order of replacement matters.
     # HTML forms probably rare in Beautiful Soup output, but retained in case.
     the_dict = C.OrderedDict([\
-            ('&amp;', '\\&'), \
+            ('&amp;', r'\&'), \
             ('&gt;', '>'), \
             ('&lt;', '<'), \
-            ('&', '\\&'), \
-            ('$', '\\$'), \
-            ('%', '\\%'), \
-            ('#', '\\#'), \
+            ('&', r'\&'), \
+            ('$', r'\$'), \
+            ('%', r'\%'), \
+            ('#', r'\#'), \
             (' "', ' ``'), \
             (" '", " `"), \
             ('"', "''"), \
