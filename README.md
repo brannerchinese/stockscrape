@@ -4,6 +4,7 @@
 
 **Author**: David Prager Branner
 
+**Note**: 20160712 was the last day this code worked. It appears Yahoo changed the structure of its web pages after that date, so the scraping tools will have to be revised.
 
 ## Goal
 
