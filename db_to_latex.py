@@ -27,11 +27,12 @@ def main(filename='stock_list.txt', days_of_history = 7):
     running_tex_str = process_tickers(contents, running_tex_str)
     ###############################
     # 2. Stock news
-    running_tex_str = process_news(contents, running_tex_str, days_of_history)
+    # STOPPED WORKING IN 2016
+#    running_tex_str = process_news(contents, running_tex_str, days_of_history)
     ################################
     # 3. Write to output
     write_contents(running_tex_str)
-    print('\n\nFinished headlines.')
+#    print('\n\nFinished headlines.')
 
 def process_tickers(contents, running_tex_str):
     """Gather stock data from Yahoo API and output as LaTeX table."""

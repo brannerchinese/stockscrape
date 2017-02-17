@@ -319,10 +319,11 @@ def main(filename='stock_list.txt', verbose=False):
     S.process_tickers()
     ################################
     # 2. Stock news
-    S.process_news()
+    # STOPPED WORKING in 2016
+#    S.process_news()
     ################################
     # 3. Report to output
-    print('\n\nFinished headlines.')
+#    print('\n\nFinished headlines.')
 
 if __name__ == '__main__':
     main(verbose='-v' in sys.argv)
